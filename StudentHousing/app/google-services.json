@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "675205235392",
+    "firebase_url": "https://studenthousing-daeb2.firebaseio.com",
+    "project_id": "studenthousing-daeb2",
+    "storage_bucket": "studenthousing-daeb2.appspot.com"
+  },	
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675205235392:android:79352d58b43789dc",
+        "android_client_info": {
+          "package_name": "com.example.quang.studenthousing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675205235392-uifl88v3s5r8q9p5od2f8ig4n014iked.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quang.studenthousing",
+            "certificate_hash": "dc6f3d9ad97b70ceaa34bf6cff15d8ae30be04da"
+          }
+        },
+        {
+          "client_id": "675205235392-3u16lefsn9j6m2e285l4svc84tpqpnmj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3p6W5QsO2KWxvjkwHfwBVRnSmMa5tHfQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675205235392-3u16lefsn9j6m2e285l4svc84tpqpnmj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
