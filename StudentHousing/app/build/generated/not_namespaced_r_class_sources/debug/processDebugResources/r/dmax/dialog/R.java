@@ -33,18 +33,18 @@ public final class R {
     public static final class drawable {
         private drawable() {}
 
-        public static final int spot = 0x7f070104;
+        public static final int spot = 0x7f070102;
     }
     public static final class id {
         private id() {}
 
-        public static final int progress = 0x7f0800fb;
-        public static final int title = 0x7f080153;
+        public static final int progress = 0x7f0800bd;
+        public static final int title = 0x7f080103;
     }
     public static final class layout {
         private layout() {}
 
-        public static final int dialog = 0x7f0a0039;
+        public static final int dialog = 0x7f0a0031;
     }
     public static final class style {
         private style() {}

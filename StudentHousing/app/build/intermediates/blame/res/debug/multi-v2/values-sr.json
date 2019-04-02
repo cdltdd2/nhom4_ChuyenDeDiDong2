@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Tic\\Desktop\\chuyendedidong2_nhom4-master\\chuyendedidong2_nhom4-master\\StudentHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sr\\values-sr.xml",
+            "outputFile": "C:\\Users\\Tic\\Desktop\\git_project_dd2\\StudentHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sr\\values-sr.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Tic\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-15.0.1.aar\\2fa03c470afc0646abe11004868fb1c4\\res\\values-sr\\values.xml",

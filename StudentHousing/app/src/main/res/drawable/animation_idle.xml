@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/selected"
+    android:oneshot="true">
+
+    <item android:drawable="@drawable/im25" android:duration="50"/>
+    <item android:drawable="@drawable/im13" android:duration="50"/>
+    <item android:drawable="@drawable/im1" android:duration="50"/>
+
+</animation-list>
+

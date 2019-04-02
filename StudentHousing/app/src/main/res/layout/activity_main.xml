@@ -8,5 +8,439 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!--<LinearLayout-->
+    <!--android:background="@color/background"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbarMain"-->
+    <!--app:layout_scrollFlags="scroll|enterAlways"-->
+    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:layout_height="?android:actionBarSize">-->
+
+    <!--</android.support.v7.widget.Toolbar>-->
+    <!--</android.support.v7.widget.CardView>-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<GridView-->
+    <!--android:padding="5dp"-->
+    <!--android:id="@+id/gvAllHouses"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:verticalSpacing="5dp"-->
+    <!--android:horizontalSpacing="5dp"-->
+    <!--android:numColumns="auto_fit"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"></GridView>-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:src="@drawable/icon_search"-->
+    <!--android:id="@+id/btnSearch"-->
+    <!--android:layout_gravity="bottom|right"-->
+    <!--android:layout_marginBottom="15dp"-->
+    <!--android:layout_marginRight="15dp"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--</FrameLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:id="@+id/toolbarMain"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:layout_width="match_parent"
+                android:background="@color/colorPrimary"
+                android:layout_height="?android:actionBarSize">
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <GridView
+                android:padding="5dp"
+                android:id="@+id/gvAllHouses"
+                android:layout_gravity="center"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="auto_fit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></GridView>
+        </FrameLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:src="@drawable/icon_search"
+            android:id="@+id/btnSearch"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_marginLeft="60dp"
+        android:layout_gravity="start"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_gravity="bottom|right"
+                android:src="@drawable/logo_custom_two"
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
+            <ImageView
+                android:background="#e2446e92"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="right|top"
+                android:id="@+id/btnMap"
+                android:src="@drawable/icon_map"
+                android:background="@drawable/btn_circle"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <!--<ImageButton-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_gravity="right|top"-->
+            <!--android:id="@+id/btnSetting"-->
+            <!--android:src="@drawable/icon_setting"-->
+            <!--android:background="@drawable/btn_circle"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp" />-->
+
+            <com.example.quang.studenthousing.object.CustomTextBold
+                android:layout_width="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="@string/name"
+                android:layout_marginBottom="25dp"
+                android:id="@+id/tvName"
+                android:lines="1"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="15dp"
+                android:paddingBottom="5dp"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_height="wrap_content" />
+
+            <com.example.quang.studenthousing.object.CustomTextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="@string/phone"
+                android:lines="1"
+                android:id="@+id/tvPhone"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="15dp"
+                android:paddingBottom="5dp"
+                style="?android:attr/textAppearanceSmall"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/lnAllHouses"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/all_houses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="#000000"
+                        android:text="@string/all_houses"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/lnFavorite"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/icon_favorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="#000000"
+                        android:text="@string/favorite"
+                        android:layout_height="wrap_content" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <Button
+                            android:id="@+id/btnCountFavorites"
+                            android:layout_marginRight="15dp"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:layout_gravity="center_vertical|right"
+                            android:background="@drawable/circle_gray"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/lnSort"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/icon_sort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="#000000"
+                        android:text="@string/sort"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:background="@color/background"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+
+                <!--<LinearLayout-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:id="@+id/lnInfo"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<ImageView-->
+                <!--android:padding="10dp"-->
+                <!--android:src="@drawable/icon_info"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+                <!--<com.example.quang.studenthousing.object.CustomTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:textStyle="bold"-->
+                <!--style="?android:attr/textAppearanceSmall"-->
+                <!--android:textColor="#000000"-->
+                <!--android:text="@string/info"-->
+                <!--android:layout_height="wrap_content" />-->
+                <!--</LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/lnAddPost"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/icon_add_doc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="#000000"
+                        android:text="@string/add_post"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/lnUploaded"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/icon_uploaded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="#000000"
+                        android:text="@string/uploaded"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/lnRegisterPoster"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/icon_register_poster"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="#000000"
+                        android:text="@string/register_poster"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!--<LinearLayout-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:id="@+id/lnHistory"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<ImageView-->
+                <!--android:padding="10dp"-->
+                <!--android:src="@drawable/icon_history"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+                <!--<com.example.quang.studenthousing.object.CustomTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:textStyle="bold"-->
+                <!--style="?android:attr/textAppearanceSmall"-->
+                <!--android:textColor="#000000"-->
+                <!--android:text="@string/history"-->
+                <!--android:layout_height="wrap_content" />-->
+                <!--</LinearLayout>-->
+
+                <!--<LinearLayout-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:id="@+id/lnSchedule"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<ImageView-->
+                <!--android:padding="10dp"-->
+                <!--android:src="@drawable/icon_schedule"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+                <!--<com.example.quang.studenthousing.object.CustomTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:textStyle="bold"-->
+                <!--style="?android:attr/textAppearanceSmall"-->
+                <!--android:textColor="#000000"-->
+                <!--android:text="@string/schedule"-->
+                <!--android:layout_height="wrap_content" />-->
+                <!--</LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/lnBooked"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/icon_booked_yellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="#000000"
+                        android:text="@string/history_booking"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/lnLogout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/icon_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="#000000"
+                        android:text="@string/logout"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

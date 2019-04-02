@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Tic\\Desktop\\chuyendedidong2_nhom4-master\\chuyendedidong2_nhom4-master\\StudentHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-id\\values-id.xml",
+            "outputFile": "C:\\Users\\Tic\\Desktop\\git_project_dd2\\StudentHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-id\\values-id.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Tic\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.41.0.aar\\66a6777ddb2fa6c2fef7864177981d8d\\res\\values-id\\values-id.xml",

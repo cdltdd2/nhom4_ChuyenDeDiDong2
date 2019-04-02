@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_refesh"
+        android:orderInCategory="300"
+        android:title="Refesh"
+        android:icon="@drawable/icon_refesh"
+        app:showAsAction="ifRoom"></item>
+
+    <item
+        android:id="@+id/action_more"
+        android:orderInCategory="300"
+        android:title="More"
+        android:icon="@drawable/icon_more"
+        app:showAsAction="ifRoom"></item>
+
+</menu>
