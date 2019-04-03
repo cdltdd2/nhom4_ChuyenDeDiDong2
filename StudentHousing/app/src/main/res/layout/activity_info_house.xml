@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="match_parent"
+    tools:context=".InfoHouseActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true"
+        >
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@android:color/transparent"
+            android:fitsSystemWindows="true"
+            >
+
+            <ImageView
+                android:id="@+id/imHouseInfo"
+                app:layout_collapseMode="parallax"
+                android:src="@color/colorPrimary"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:title="hello"
+                app:layout_collapseMode="pin"
+                />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.example.quang.studenthousing.object.CustomTextBold
+                            android:id="@+id/tvTitleInfo"
+                            android:layout_width="wrap_content"
+                            android:padding="10dp"
+                            android:text="Title"
+                            style="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomTextView
+                            android:id="@+id/tvAddressInfo"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/textAppearanceSmall"
+                            android:padding="10dp"
+                            android:text="@string/address"
+                            android:drawablePadding="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:drawableLeft="@drawable/icon_address"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomTextView
+                            android:id="@+id/tvPhoneInfo"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/textAppearanceSmall"
+                            android:padding="10dp"
+                            android:text="@string/phone"
+                            android:drawablePadding="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:drawableLeft="@drawable/icon_phone"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomTextView
+                            android:id="@+id/tvEmailInfo"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/textAppearanceSmall"
+                            android:padding="10dp"
+                            android:text="@string/no_email"
+                            android:drawablePadding="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:drawableLeft="@drawable/icon_email"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.example.quang.studenthousing.object.CustomTextBold
+                            android:layout_width="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/basic_info"
+                            style="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomTextView
+                            android:id="@+id/tvPriceInfo"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/textAppearanceSmall"
+                            android:padding="10dp"
+                            android:text="@string/price"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomTextView
+                            android:id="@+id/tvAcreageInfo"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/textAppearanceSmall"
+                            android:padding="10dp"
+                            android:text="@string/acreage"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomTextView
+                            android:id="@+id/tvObjectInfo"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/textAppearanceSmall"
+                            android:padding="10dp"
+                            android:text="@string/object"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomTextView
+                            android:id="@+id/tvMaxPeoInfo"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/textAppearanceSmall"
+                            android:padding="10dp"
+                            android:text="@string/max_people"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <com.example.quang.studenthousing.object.CustomTextView
+                                android:layout_width="wrap_content"
+                                style="?android:attr/textAppearanceSmall"
+                                android:padding="10dp"
+                                android:text="@string/state"
+                                android:layout_gravity="center_vertical"
+                                android:layout_height="wrap_content" />
+                            <com.example.quang.studenthousing.object.CustomTextView
+                                android:id="@+id/tvStateInfo"
+                                android:layout_width="wrap_content"
+                                style="?android:attr/textAppearanceSmall"
+                                android:paddingLeft="5dp"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+
+
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.example.quang.studenthousing.object.CustomTextBold
+                            android:layout_width="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/strong_info"
+                            style="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomTextView
+                            android:id="@+id/tvStrongInfoInfo"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/textAppearanceSmall"
+                            android:padding="10dp"
+                            android:text="là một phương tiện để ghi nhận, lưu giữ và truyền đạt các thông tin, quyết định từ chủ thể này sang chủ thể khác bằng một ký hiệu hay ngôn ngữ nhất định nào đó. Hay nói khác đi, văn bản là một dạng sản của hoạt động giao tiếp bằng ngôn ngữ được thể hiện ở dạng viết trên một chất liệu nào đó (giấy, bia đá...); gồm tập hợp các câu có tính trọn vẹn về nội dung, hoàn chỉnh về hình thức, có tính liên kết chặt chẽ và hướng tới một mục tiêu giao tiếp nhất"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="wrap_content" />
+
+
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.example.quang.studenthousing.object.CustomTextBold
+                            android:layout_width="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/photo"
+                            style="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.quang.studenthousing.object.CustomGridView
+                            android:id="@+id/gvPhotoInfo"
+                            android:layout_marginTop="20dp"
+                            android:verticalSpacing="5dp"
+                            android:horizontalSpacing="5dp"
+                            android:numColumns="5"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.example.quang.studenthousing.object.CustomGridView>
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.example.quang.studenthousing.object.CustomTextBold
+                            android:layout_width="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/map"
+                            style="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content" />
+
+                        <fragment
+                            android:id="@+id/mapInfo"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_height="200dp"/>
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.example.quang.studenthousing.object.CustomTextBold
+                            android:layout_width="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/comment"
+                            style="?android:attr/textAppearanceMedium"
+                            android:layout_height="wrap_content" />
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <com.example.quang.studenthousing.object.CustomEditText
+                                        android:id="@+id/edtComment"
+                                        android:hint="@string/enter_ccomment"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_weight="3"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <ImageButton
+                                        android:id="@+id/btnSendComment"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:background="@drawable/btn_background_send"
+                                        android:src="@drawable/icon_send"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <com.example.quang.studenthousing.object.CustomListView
+                                    android:id="@+id/lvComments"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                </com.example.quang.studenthousing.object.CustomListView>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/icon_add_favorite"
+        android:layout_width="wrap_content"
+        android:id="@+id/btnAddFavorite"
+        android:layout_height="wrap_content"
+        app:elevation="6dp"
+        android:layout_marginRight="20dp"
+        app:pressedTranslationZ="12dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        />
+</android.support.design.widget.CoordinatorLayout>
