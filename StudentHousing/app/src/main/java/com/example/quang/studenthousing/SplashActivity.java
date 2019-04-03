@@ -17,7 +17,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
 
-
         if (!Utils.checkPermission(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             startActivity(new Intent(this,PermissionActivity.class));
             finish();

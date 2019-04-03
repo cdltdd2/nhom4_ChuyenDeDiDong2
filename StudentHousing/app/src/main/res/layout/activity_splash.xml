@@ -49,5 +49,4 @@
         android:textColor="@color/white"
         android:lines="2"
         android:layout_height="wrap_content" />
-
 </RelativeLayout>
