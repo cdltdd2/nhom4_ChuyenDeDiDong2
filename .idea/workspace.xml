@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8767044e-f08e-4a50-832a-66c8121edcf2" name="Default Changelist" comment="sprint 1: update sort layout">
-      <change beforePath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java" afterDir="false" />
-    </list>
+    <list default="true" id="8767044e-f08e-4a50-832a-66c8121edcf2" name="Default Changelist" comment="sprint 1: update sort layout" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,28 +25,28 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="3" />
+          <entry key="java" value="4" />
           <entry key="rej" value="1" />
-          <entry key="xml" value="2" />
+          <entry key="xml" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="3" />
+          <entry key="JAVA" value="4" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="XML" value="2" />
+          <entry key="XML" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="52" />
+          <entry key="java" value="67" />
           <entry key="txt" value="97" />
           <entry key="xml" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="52" />
+          <entry key="JAVA" value="67" />
           <entry key="PLAIN_TEXT" value="97" />
           <entry key="XML" value="27" />
         </counts>
@@ -57,16 +55,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="136">
+              <caret line="77" column="17" lean-forward="true" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
               <folding>
                 <element signature="method#initViews#0;class#MainActivity#0" />
                 <element signature="method#initDialogSearch#0;class#MainActivity#0" />
                 <element signature="e#9166#9167#0" expanded="true" />
                 <element signature="e#9218#9219#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/activity_favorite.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/FavoriteActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+              <folding>
+                <element signature="method#initView#0;class#FavoriteActivity#0" />
+                <element signature="method#onBackPressed#0;class#FavoriteActivity#0" />
               </folding>
             </state>
           </provider>
@@ -119,6 +139,7 @@
         <option value="$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/activity_splash.xml" />
         <option value="$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/dialog_sort.xml" />
         <option value="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java" />
+        <option value="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/FavoriteActivity.java" />
       </list>
     </option>
   </component>
@@ -444,13 +465,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="136">
+          <caret line="77" column="17" lean-forward="true" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
           <folding>
             <element signature="method#initViews#0;class#MainActivity#0" />
             <element signature="method#initDialogSearch#0;class#MainActivity#0" />
             <element signature="e#9166#9167#0" expanded="true" />
             <element signature="e#9218#9219#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/activity_favorite.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/FavoriteActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding>
+            <element signature="method#initView#0;class#FavoriteActivity#0" />
+            <element signature="method#onBackPressed#0;class#FavoriteActivity#0" />
           </folding>
         </state>
       </provider>
