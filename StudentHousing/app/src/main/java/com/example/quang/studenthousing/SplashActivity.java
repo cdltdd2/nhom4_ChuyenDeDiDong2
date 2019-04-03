@@ -23,8 +23,6 @@ public class SplashActivity extends AppCompatActivity {
             finish();
             return;
         }
-
-
          new CountDownTimer(3000,1000)
          {
             @Override
