@@ -195,7 +195,44 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void initDialogSort() {
+        dialogSort = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            dialogSort.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+        else {
+            dialogSort.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        }
+        dialogSort.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogSort.setContentView(R.layout.dialog_sort);
+        dialogSort.setCancelable(true);
 
+        RadioGroup groupType = dialogSort.findViewById(R.id.groupTypeSort);
+        RadioGroup groupStyle = dialogSort.findViewById(R.id.groupStyleSort);
+        RadioButton radPrice = dialogSort.findViewById(R.id.radPrice);
+        RadioButton radAcreage = dialogSort.findViewById(R.id.radAcreage);
+        RadioButton radTurnDown = dialogSort.findViewById(R.id.radTurnDown);
+        RadioButton radTurnUp = dialogSort.findViewById(R.id.radTurnUp);
+        TextView tvCancel = dialogSort.findViewById(R.id.tvCancelDialog);
+        TextView tvDone = dialogSort.findViewById(R.id.tvDoneDialog);
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                dialogSort.dismiss();
+            }
+        });
+
+        tvDone.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+                dialogSort.dismiss();
+            }
+        });
+    }
 
 
 }
