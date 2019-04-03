@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8767044e-f08e-4a50-832a-66c8121edcf2" name="Default Changelist" comment="sprint 1: update sort layout">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/CreatePostActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/InfoHouseActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/register/RegisterFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/activity_create_post.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/activity_info_house.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/fragment_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nhom4_ChuyenDeDiDong2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/nhom4_ChuyenDeDiDong2.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,8 +71,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="813">
-              <caret line="100" column="5" lean-forward="true" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
+            <state relative-caret-position="184">
+              <caret line="129" column="5" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
               <folding>
                 <element signature="method#initViews#0;class#MainActivity#0" />
                 <element signature="method#initDialogSearch#0;class#MainActivity#0" />
@@ -108,7 +118,7 @@
         <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/activity_splash.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="213">
-              <caret line="32" column="44" lean-forward="true" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+              <caret line="32" column="44" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -117,7 +127,7 @@
         <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/dialog_sort.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="159">
-              <caret line="31" column="49" lean-forward="true" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+              <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -392,7 +402,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.2655068" />
       <window_info id="Structure" side_tool="true" />
@@ -454,14 +463,14 @@
     <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/activity_splash.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
-          <caret line="32" column="44" lean-forward="true" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+          <caret line="32" column="44" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/res/layout/dialog_sort.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
-          <caret line="31" column="49" lean-forward="true" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+          <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -491,8 +500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="813">
-          <caret line="100" column="5" lean-forward="true" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
+        <state relative-caret-position="184">
+          <caret line="129" column="5" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
           <folding>
             <element signature="method#initViews#0;class#MainActivity#0" />
             <element signature="method#initDialogSearch#0;class#MainActivity#0" />
