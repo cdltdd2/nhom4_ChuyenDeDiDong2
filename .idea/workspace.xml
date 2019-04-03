@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8767044e-f08e-4a50-832a-66c8121edcf2" name="Default Changelist" comment="">
+    <list default="true" id="8767044e-f08e-4a50-832a-66c8121edcf2" name="Default Changelist" comment="sprint 1: update sort layout">
       <change beforePath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,15 +41,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="48" />
-          <entry key="txt" value="64" />
+          <entry key="java" value="52" />
+          <entry key="txt" value="97" />
           <entry key="xml" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="48" />
-          <entry key="PLAIN_TEXT" value="64" />
+          <entry key="JAVA" value="52" />
+          <entry key="PLAIN_TEXT" value="97" />
           <entry key="XML" value="27" />
         </counts>
       </usages-collector>
@@ -60,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="203" column="9" lean-forward="true" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="9" />
+            <state relative-caret-position="119">
+              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
               <folding>
                 <element signature="method#initViews#0;class#MainActivity#0" />
                 <element signature="method#initDialogSearch#0;class#MainActivity#0" />
@@ -357,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554256967153</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="sprint 1: update sort layout">
+      <created>1554257500694</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1554257500694</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -401,7 +408,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sprint1: layout va activity khoi dong" />
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="sprint 1: update sort layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="sprint 1: update sort layout" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MapActivity.java">
@@ -436,8 +444,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/StudentHousing/app/src/main/java/com/example/quang/studenthousing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="203" column="9" lean-forward="true" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="9" />
+        <state relative-caret-position="119">
+          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
           <folding>
             <element signature="method#initViews#0;class#MainActivity#0" />
             <element signature="method#initDialogSearch#0;class#MainActivity#0" />

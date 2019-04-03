@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         findID();
         initViews();
         initDialogSearch();
+        initDialogSort();
     }
 
     private void findID() {
