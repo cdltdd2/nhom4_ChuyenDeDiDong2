@@ -20,7 +20,6 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/tvWelcome"
         android:layout_height="wrap_content" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="250dp"
         android:id="@+id/circle"
