@@ -32,7 +32,6 @@ public class SplashActivity extends AppCompatActivity {
             {
 
             }
-
             @Override
             public void onFinish()
             {
