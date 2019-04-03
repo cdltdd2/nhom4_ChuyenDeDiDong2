@@ -9,7 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.quang.studenthousing.utils.Utils;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
