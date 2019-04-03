@@ -129,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new SpotsDialog(this, R.style.CustomProgressDialog);
     }
 
-
-
     private void initDialogSearch() {
         dialogSearch = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -234,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }
