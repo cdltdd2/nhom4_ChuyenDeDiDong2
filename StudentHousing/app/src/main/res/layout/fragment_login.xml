@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent">
+
+    <com.example.quang.studenthousing.object.CustomTextItalic
+        android:layout_width="wrap_content"
+        android:text="@string/login"
+        android:textAlignment="center"
+        android:layout_marginTop="40dp"
+        android:id="@+id/tvLogin"
+        android:layout_centerHorizontal="true"
+        android:textSize="45sp"
+        android:textColor="@color/white"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/lnEdt"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.example.quang.studenthousing.object.CustomEditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:id="@+id/edtUserNameLogin"
+            android:drawableLeft="@drawable/icon_user"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edt_background_border_top"
+            android:hint="@string/username"/>
+        <com.example.quang.studenthousing.object.CustomEditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:id="@+id/edtPasswordLogin"
+            android:drawableLeft="@drawable/icon_password"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="textPassword"
+            android:background="@drawable/edt_background_border_bottom"
+            android:hint="@string/password"/>
+        <com.example.quang.studenthousing.object.CustomTextView
+            android:padding="10dp"
+            android:layout_gravity="right"
+            android:id="@+id/tvRegisterUser"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/register_user"
+            android:layout_marginBottom="20dp"
+            style="?android:attr/textAppearanceMedium"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+    <Button
+        style="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:text="@string/login"
+        android:layout_below="@id/lnEdt"
+        android:layout_marginTop="30dp"
+        android:id="@+id/btnLogin"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_background_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+
+
+</RelativeLayout>
