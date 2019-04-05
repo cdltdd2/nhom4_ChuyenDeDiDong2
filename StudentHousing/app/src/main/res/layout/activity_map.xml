@@ -71,6 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -85,12 +86,14 @@
                 android:inputType="textEmailAddress"
                 android:background="@drawable/edt_background"
                 android:hint="@string/location"/>
+
             <View
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:background="@color/background"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
+
             <com.example.quang.studenthousing.object.CustomEditTextLocation
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

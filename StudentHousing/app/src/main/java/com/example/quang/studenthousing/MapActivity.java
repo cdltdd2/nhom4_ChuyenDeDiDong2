@@ -31,11 +31,12 @@ public class MapActivity extends AppCompatActivity
     private ImageButton btnShowAll;
     private TextView tvCurrentAddress;
 
+    private LatLng currentLocation;
+    private SpotsDialog progressDialog;
+
     private CustomEditTextLocation edtLocation;
     private CustomEditTextLocation edtRadius;
 
-    private LatLng currentLocation;
-    private SpotsDialog progressDialog;
 
     private int idUser;
     private House houseToPass = null;
@@ -49,7 +50,6 @@ public class MapActivity extends AppCompatActivity
         findID();
         initViews();
     }
-
 
     private void findID() {
         edtLocation = findViewById(R.id.edtLocation);
