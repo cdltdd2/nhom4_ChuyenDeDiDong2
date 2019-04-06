@@ -27,12 +27,24 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     // Returns the fragment to display for that page
     @Override
     public Fragment getItem(int position) {
-		return null;
+        switch (position) {
+            case 0:
+                return new ManagerPostFragment();
+            case 1:
+                return new ManagerUserFragment();
+            default:
+                return null;
+        }
     }
 
     // Returns the page title for the top indicator
     @Override
     public CharSequence getPageTitle(int position) {
+        if (position == 0){
+            return context.getString(R.string.post);
+        }else if (position == 1){
+            return context.getString(R.string.user);
+        }
         return null;
     }
 
