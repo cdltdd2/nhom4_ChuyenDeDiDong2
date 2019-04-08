@@ -36,6 +36,31 @@ public class CustomEditTextLocation extends EditText {
 
     void init(Context context) {
 
+        btn_clear.setBounds(0, 0, btn_clear.getIntrinsicWidth(), btn_clear.getIntrinsicHeight());
+        final CustomEditTextLocation editText = CustomEditTextLocation.this;
+
+        this.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (editText.getCompoundDrawables()[2] == null)
+                    return false;
+
+                if (event.getAction() != MotionEvent.ACTION_UP)
+                    return false;
+
+                if (event.getX() > editText.getWidth() - editText.getPaddingRight() - btn_clear.getIntrinsicWidth()) {
+                    onChangeLocation.changeLocation(editText.getText().toString());
+                    editText.setCompoundDrawables(editText.getCompoundDrawables()[0], editText.getCompoundDrawables()[1], null, editText.getCompoundDrawables()[3]);
+                }
+                return false;
+            }
+        });
+
+
+    }
+
+    public void setOnChangedLocationListener(OnChangeLocation listener){
+        onChangeLocation = listener;
     }
 
 
