@@ -56,7 +56,34 @@ public class CustomEditTextLocation extends EditText {
             }
         });
 
+        this.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    if(!"".equals(editText.getText().toString())){
+                        editText.setCompoundDrawables(editText.getCompoundDrawables()[0], editText.getCompoundDrawables()[1], btn_clear, editText.getCompoundDrawables()[3]);
+                    }
+                }else {
+                    editText.setCompoundDrawables(editText.getCompoundDrawables()[0], editText.getCompoundDrawables()[1], null, editText.getCompoundDrawables()[3]);
+                }
+            }
+        });
 
+        this.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (editText.getText().toString().equals("")) {
+                    editText.setCompoundDrawables(editText.getCompoundDrawables()[0], editText.getCompoundDrawables()[1], null, editText.getCompoundDrawables()[3]);
+                }
+                else {
+                    editText.setCompoundDrawables(editText.getCompoundDrawables()[0], editText.getCompoundDrawables()[1], btn_clear, editText.getCompoundDrawables()[3]);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable arg0) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        });
     }
 
     public void setOnChangedLocationListener(OnChangeLocation listener){
