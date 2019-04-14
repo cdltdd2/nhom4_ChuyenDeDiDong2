@@ -15,7 +15,6 @@ public class PostUploadedActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private GridView gvPostUploaded;
-    private GridViewHouseUploadedAdapter adapter;
     private ArrayList<House> arrPostUploaded;
     private int idUser;
 
@@ -46,9 +45,6 @@ public class PostUploadedActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.uploaded);
 
         arrPostUploaded = new ArrayList<>();
-
-        adapter = new GridViewHouseUploadedAdapter(this,R.layout.item_gridview_house_request,arrPostUploaded);
-        gvPostUploaded.setAdapter(adapter);
 
         gvPostUploaded.setOnItemClickListener((AdapterView.OnItemClickListener) this);
     }
