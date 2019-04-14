@@ -1,5 +1,6 @@
 package com.example.quang.studenthousing;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +34,17 @@ public class AccountActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    public void switchActivityManager(){
+        startActivity(new Intent(AccountActivity.this,ManagerActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            super.onBackPressed();
+        }
+    }
 
 
 }
