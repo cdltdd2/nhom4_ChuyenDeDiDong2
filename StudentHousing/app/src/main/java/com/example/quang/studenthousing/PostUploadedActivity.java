@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import com.example.quang.studenthousing.adapter.GridViewHouseUploadedAdapter;
 import com.example.quang.studenthousing.object.House;
 import java.util.ArrayList;
 import java.util.Objects;
