@@ -18,10 +18,13 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.quang.studenthousing.adapter.GridViewPhotoAdapter;
 import com.example.quang.studenthousing.adapter.ListViewCommentAdapter;
 import com.example.quang.studenthousing.object.Comment;
 import com.example.quang.studenthousing.object.CustomListView;
+import com.example.quang.studenthousing.object.House;
 import com.example.quang.studenthousing.object.UrlPhoto;
 import com.example.quang.studenthousing.services.APIClient;
 import com.example.quang.studenthousing.services.DataClient;
@@ -57,6 +60,11 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
     private CustomListView lvComment;
     private ArrayList<Comment> arrComment;
     private ListViewCommentAdapter adapterComment;
+    private int permission;
+    private House house;
+    private int idUser;
+    private int state;
+    private MenuItem item;
     private boolean checkBook;
 
     @Override
@@ -189,6 +197,37 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         return super.onOptionsItemSelected(item);
     }
 
+    private void deleteBook(){
+        DataClient dataClient = APIClient.getData();
+        Call<String> callBack = dataClient.deleteBooking(idUser,house.getIDHOUSE());
+        callBack.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("success")){
+                    Snackbar snackbar = Snackbar
+                            .make(btnAddFavorite, R.string.success, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    item.setIcon(R.drawable.icon_book_white);
+                    checkBook = false;
+                    tvState.setText(R.string.un_book);
+                    tvState.setTextColor(Color.GREEN);
+                    house.setSTATE(0);
+                }else if (response.body().equals("fail")){
+                    Snackbar snackbar = Snackbar
+                            .make(btnAddFavorite, R.string.fail, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    checkBook = true;
+                    house.setSTATE(1);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(InfoHouseActivity.this, "fail", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 
     //dang ky phong
     private void bookRoom(){
