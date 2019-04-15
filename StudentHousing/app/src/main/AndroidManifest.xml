@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoHouseActivity" />
+        <activity android:name=".ManagerActivity" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".PermissionActivity" />
     </application>
