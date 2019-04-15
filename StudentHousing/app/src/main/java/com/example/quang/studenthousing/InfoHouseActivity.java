@@ -1,10 +1,16 @@
 package com.example.quang.studenthousing;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -17,7 +23,14 @@ import com.example.quang.studenthousing.adapter.ListViewCommentAdapter;
 import com.example.quang.studenthousing.object.Comment;
 import com.example.quang.studenthousing.object.CustomListView;
 import com.example.quang.studenthousing.object.UrlPhoto;
+import com.example.quang.studenthousing.services.APIClient;
+import com.example.quang.studenthousing.services.DataClient;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class InfoHouseActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
@@ -44,7 +57,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
     private CustomListView lvComment;
     private ArrayList<Comment> arrComment;
     private ListViewCommentAdapter adapterComment;
-
+    private boolean checkBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,4 +117,118 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
+
+    //dat: dky va huy dky dat phong
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        if (id == android.R.id.home)
+        {
+            finish();
+        }
+        else if (id == R.id.action_book)
+        {
+            if (checkBook)
+            {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    builder = new AlertDialog.Builder(InfoHouseActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                }
+                else
+                {
+                    builder = new AlertDialog.Builder(InfoHouseActivity.this);
+                }
+                builder.setTitle(R.string.confirm)
+                        .setMessage(R.string.delete_this_book)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                deleteBook();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+            else
+            {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    builder = new AlertDialog.Builder(InfoHouseActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                }
+                else
+                {
+                    builder = new AlertDialog.Builder(InfoHouseActivity.this);
+                }
+                builder.setTitle(R.string.confirm)
+                        .setMessage(R.string.book_room)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    //dang ky phong
+    private void bookRoom(){
+        DataClient dataClient = APIClient.getData();
+        Call<String> callBack = dataClient.bookRoom(idUser,house.getIDHOUSE());
+        callBack.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("success")){
+                    Snackbar snackbar = Snackbar
+                            .make(btnAddFavorite, R.string.book_success, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    tvState.setText(R.string.booked);
+                    tvState.setTextColor(Color.RED);
+                    house.setSTATE(1);
+                    item.setIcon(R.drawable.icon_unbook_white);
+                    checkBook = true;
+                }else if (response.body().equals("fail")){
+                    Snackbar snackbar = Snackbar
+                            .make(btnAddFavorite, R.string.book_fail, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    house.setSTATE(0);
+                    checkBook = false;
+                }else if (response.body().equals("booked")){
+                    Snackbar snackbar = Snackbar
+                            .make(btnAddFavorite, R.string.someone_has_put, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Snackbar snackbar = Snackbar
+                        .make(btnAddFavorite, R.string.book_fail, Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+            }
+        });
+    }
+
+
+
 }
