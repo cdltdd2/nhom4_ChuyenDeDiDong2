@@ -1,9 +1,13 @@
 package com.example.quang.studenthousing;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.quang.studenthousing.adapter.FragmentAdapter;
 
@@ -37,5 +41,27 @@ public class ManagerActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_logout){
+            SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+            SharedPreferences.Editor edit=pre.edit();
+            edit.putString("user","");
+            edit.commit();
+            startActivity(new Intent(this,AccountActivity.class));
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_manager, menu);
+        return true;
+    }
 
 }
