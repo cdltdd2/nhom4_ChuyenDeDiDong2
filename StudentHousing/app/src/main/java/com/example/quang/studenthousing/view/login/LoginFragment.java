@@ -16,6 +16,7 @@ import com.example.quang.studenthousing.AccountActivity;
 import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.presenter.login.PresenterLogicLogin;
 import com.example.quang.studenthousing.view.register.RegisterFragment;
+import com.facebook.login.LoginManager;
 import static android.content.Context.MODE_PRIVATE;
 
 public class LoginFragment extends Fragment implements View.OnClickListener, ViewLogin
@@ -29,7 +30,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
     private AccountActivity activity;
     private PresenterLogicLogin presenterLogicLogin;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -37,6 +37,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
         View view = inflater.inflate(R.layout.fragment_login,container,false);
         findID(view);
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LoginManager.getInstance().logOut();
+        initViews();
     }
 
     private void findID(View view) {
@@ -110,6 +117,5 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
         }
     }
 
-	
 
 }
