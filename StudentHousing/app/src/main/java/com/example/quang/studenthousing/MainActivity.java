@@ -1,28 +1,22 @@
 package com.example.quang.studenthousing;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.database.DatabaseUtils;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,17 +26,13 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.quang.studenthousing.services.APIClient;
-import com.example.quang.studenthousing.services.DataClient;
-
+import com.example.quang.studenthousing.adapter.GridViewHouseAdapter;
+import com.example.quang.studenthousing.object.Favorite;
+import com.example.quang.studenthousing.object.House;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 import dmax.dialog.SpotsDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private GridView gvAllHouses;
     private FloatingActionButton btnSearch;
+    private GridViewHouseAdapter adapter;
+    private ArrayList<House> arrHouses;
 
     // drawerlayout
     private TextView tvName;
@@ -72,11 +64,13 @@ public class MainActivity extends AppCompatActivity {
     private String pass;
     private String name;
     private String phone;
+    private int permission;
 
     private SpotsDialog progressDialog;
     private Dialog dialogSort;
     private Dialog dialogSearch;
 
+    private ArrayList<Favorite> arrFav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +132,95 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new SpotsDialog(this, R.style.CustomProgressDialog);
     }
 
-    private void initDialogSearch() {
+    private void initDialogSort()
+    {
+        dialogSort = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            dialogSort.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+        else {
+            dialogSort.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        }
+        dialogSort.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogSort.setContentView(R.layout.dialog_sort);
+        dialogSort.setCancelable(true);
+
+        RadioGroup groupType = dialogSort.findViewById(R.id.groupTypeSort);
+        RadioGroup groupStyle = dialogSort.findViewById(R.id.groupStyleSort);
+        RadioButton radPrice = dialogSort.findViewById(R.id.radPrice);
+        RadioButton radAcreage = dialogSort.findViewById(R.id.radAcreage);
+        RadioButton radTurnDown = dialogSort.findViewById(R.id.radTurnDown);
+        RadioButton radTurnUp = dialogSort.findViewById(R.id.radTurnUp);
+        TextView tvCancel = dialogSort.findViewById(R.id.tvCancelDialog);
+        TextView tvDone = dialogSort.findViewById(R.id.tvDoneDialog);
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                dialogSort.dismiss();
+            }
+        });
+
+        tvDone.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                int type;
+                int style;
+                if (radPrice.isChecked())   style = 1;
+                else    style = 0;
+
+                if (radTurnDown.isChecked()) type = 0;
+                else type = 1;
+
+                sort(type,style);
+                dialogSort.dismiss();
+            }
+        });
+    }
+
+    private void sort(int type, int style){
+        //type = 1 : low to high
+        //type = 0 : high to low
+
+        //style = 1 : price
+        //style = 0 : acreage
+
+        if (type == 1 && style == 1){
+            for (int i=0; i<arrHouses.size(); i++){
+                for (int j=0; j<arrHouses.size(); j++){
+                    if (arrHouses.get(i).getPRICE() < arrHouses.get(j).getPRICE())
+                        Collections.swap(arrHouses,i,j);
+                }
+            }
+        }else if (type == 0 && style == 1){
+            for (int i=0; i<arrHouses.size(); i++){
+                for (int j=0; j<arrHouses.size(); j++){
+                    if (arrHouses.get(i).getPRICE() > arrHouses.get(j).getPRICE())
+                        Collections.swap(arrHouses,i,j);
+                }
+            }
+        }else if (type == 1 && style == 0){
+            for (int i=0; i<arrHouses.size(); i++){
+                for (int j=0; j<arrHouses.size(); j++){
+                    if (arrHouses.get(i).getACREAGE() < arrHouses.get(j).getACREAGE())
+                        Collections.swap(arrHouses,i,j);
+                }
+            }
+        }else if (type == 0 && style == 0){
+            for (int i=0; i<arrHouses.size(); i++){
+                for (int j=0; j<arrHouses.size(); j++){
+                    if (arrHouses.get(i).getACREAGE() > arrHouses.get(j).getACREAGE())
+                        Collections.swap(arrHouses,i,j);
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private void initDialogSearch()
+    {
         dialogSearch = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             dialogSearch.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
@@ -203,45 +285,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initDialogSort()
-    {
-        dialogSort = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            dialogSort.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
-        else {
-            dialogSort.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        }
-        dialogSort.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogSort.setContentView(R.layout.dialog_sort);
-        dialogSort.setCancelable(true);
 
-        RadioGroup groupType = dialogSort.findViewById(R.id.groupTypeSort);
-        RadioGroup groupStyle = dialogSort.findViewById(R.id.groupStyleSort);
-        RadioButton radPrice = dialogSort.findViewById(R.id.radPrice);
-        RadioButton radAcreage = dialogSort.findViewById(R.id.radAcreage);
-        RadioButton radTurnDown = dialogSort.findViewById(R.id.radTurnDown);
-        RadioButton radTurnUp = dialogSort.findViewById(R.id.radTurnUp);
-        TextView tvCancel = dialogSort.findViewById(R.id.tvCancelDialog);
-        TextView tvDone = dialogSort.findViewById(R.id.tvDoneDialog);
-
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                dialogSort.dismiss();
-            }
-        });
-
-        tvDone.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-
-                dialogSort.dismiss();
-            }
-        });
-    }
 
     private void showDialogCofirmRegisterPoster(){
         AlertDialog.Builder builder;
