@@ -26,6 +26,7 @@ import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.object.House;
 import com.example.quang.studenthousing.services.APIClient;
 import com.example.quang.studenthousing.services.DataClient;
+import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -147,7 +148,6 @@ public class GridViewHouseUploadedAdapter extends BaseAdapter {
         return viewRow;
     }
 
-    //xoa bai da dang
     private void delete(int idHouse) {
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.deleteHouse(idHouse);
@@ -285,14 +285,18 @@ public class GridViewHouseUploadedAdapter extends BaseAdapter {
                     return;
                 }
 
-                GetLatLng getLatLng = new GetLatLng();
-                getLatLng.execute(s + ", " + w + ", " + d + ", " + c);
-
             }
         });
 
 
         dialog.show();
     }
+
+    private String title;
+    private String c, d, w, s, desc, phone;
+    private int object, maxpeo, id, state;
+    private float acreage, price;
+    private LatLng currentLocation;
+
 
 }
