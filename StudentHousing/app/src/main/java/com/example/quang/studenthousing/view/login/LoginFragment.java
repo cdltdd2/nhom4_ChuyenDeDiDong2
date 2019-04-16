@@ -19,11 +19,10 @@ import com.example.quang.studenthousing.view.register.RegisterFragment;
 import com.facebook.login.LoginManager;
 import static android.content.Context.MODE_PRIVATE;
 
-import com.example.quang.studenthousing.AccountActivity;
-import com.example.quang.studenthousing.R;
-
 public class LoginFragment extends Fragment implements View.OnClickListener, ViewLogin
 {
+
+    public static final int RequestSignInCode = 7;
     private EditText edtUser;
     private EditText edtPass;
     private TextView tvRegister;
@@ -31,13 +30,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
     private AccountActivity activity;
     private PresenterLogicLogin presenterLogicLogin;
 
-
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_login,container,false);
         findID(view);
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LoginManager.getInstance().logOut();
+        initViews();
     }
 
     private void findID(View view) {
@@ -47,7 +53,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
         btnLogin = view.findViewById(R.id.btnLogin);
     }
 
-	@Override
+    private void initViews() {
+        activity = (AccountActivity) getActivity();
+        tvRegister.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+
+        presenterLogicLogin = new PresenterLogicLogin(this);
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tvRegisterUser:
@@ -69,24 +84,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
         }
     }
 
-	@Override
-    public void onStart() {
-        super.onStart();
-        LoginManager.getInstance().logOut();
-        initViews();
-    }
-
-	private void initViews() 
-	{
-        activity = (AccountActivity) getActivity();
-        tvRegister.setOnClickListener(this);
-        btnLogin.setOnClickListener(this);
-
-        presenterLogicLogin = new PresenterLogicLogin(this);
-
-    }
-
-	@Override
+    @Override
     public void loginSuccess(String result) {
         saveUser(result);
     }
@@ -119,6 +117,5 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
         }
     }
 
-	
 
 }

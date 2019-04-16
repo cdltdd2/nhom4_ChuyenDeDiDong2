@@ -4,8 +4,5 @@
         android:id="@+id/sort"
         android:title="@string/sort"/>
 
-    <item
-        android:id="@+id/about"
-        android:title="@string/about"/>
 
 </menu>
