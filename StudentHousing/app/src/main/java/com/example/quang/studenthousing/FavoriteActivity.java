@@ -74,4 +74,25 @@ public class FavoriteActivity extends AppCompatActivity
         finish();
     }
 
+    private void getFav() {
+        DataClient dataClient = APIClient.getData();
+        Call<List<Favorite>> callBack = dataClient.getFavCount(idUser);
+        callBack.enqueue(new Callback<List<Favorite>>() {
+            @Override
+            public void onResponse(Call<List<Favorite>> call, Response<List<Favorite>> response) {
+                ArrayList<Favorite> arr = (ArrayList<Favorite>) response.body();
+                arrFav.clear();
+                if (arr.size() > 0){
+                    for (int i = arr.size() - 1; i >= 0; i--){
+                        arrFav.add(arr.get(i));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Favorite>> call, Throwable t) {
+            }
+        });
+    }
+
 }
