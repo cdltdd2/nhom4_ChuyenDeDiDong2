@@ -37,11 +37,14 @@ public interface DataClient
     @GET("getAllHouses.php")
     Call<List<House>> getAllHouse();
 
+    @FormUrlEncoded
+    @POST("registerPoster.php")
+    Call<String> registerPoster(@Field("id") int id);
 
     @FormUrlEncoded
     @POST("uploadImage.php")
     Call<String> uploadImage(@Field("imageCode")String imgCode,
-                              @Field("imageName")String imgName);
+                             @Field("imageName")String imgName);
 
     @FormUrlEncoded
     @POST("removeImage.php")
@@ -56,7 +59,18 @@ public interface DataClient
             , @Field("maxpeo") int maxpeo, @Field("created_at") String created_at
             , @Field("idUser") int idUser, @Field("latlng") String latlng);
 
-    
+    @FormUrlEncoded
+    @POST("insertImageForHouse.php")
+    Call<String> insertImageForHouse(@Field("url")String url, @Field("idHouse")int idHouse);
+
+    @FormUrlEncoded
+    @POST("updateCheckUpHouse.php")
+    Call<String> updateCheckUpHouse(@Field("idHouse")int id, @Field("result")int result);
+
+    @FormUrlEncoded
+    @POST("updatePermissionUser.php")
+    Call<String> updatePermissionUser(@Field("idUser")int id, @Field("result")int result);
+
     @GET("getListUserRegisterPort.php")
     Call<List<RegisterRequest>> getListUserRegister();
 
@@ -65,8 +79,17 @@ public interface DataClient
     Call<List<UrlPhoto>> getPhotoInfo(@Field("idHouse")int id);
 
     @FormUrlEncoded
+    @POST("insertComment.php")
+    Call<String> insertComment(@Field("user")int idUser, @Field("house")int idHouser
+            , @Field("text")String text, @Field("time")String time);
+
+    @FormUrlEncoded
     @POST("getComment.php")
     Call<List<Comment>> getComment(@Field("house")int id);
+
+    @FormUrlEncoded
+    @POST("getFavoriteCount.php")
+    Call<List<Favorite>> getFavCount(@Field("idUser")int id);
 
     @FormUrlEncoded
     @POST("addFavorite.php")
@@ -77,8 +100,20 @@ public interface DataClient
     Call<String> removeFavorite(@Field("idUser")int idUser, @Field("idHouse")int idHouser);
 
     @FormUrlEncoded
+    @POST("getHouseFavorite.php")
+    Call<List<House>> getHouseFavorite(@Field("id")int id);
+
+    @FormUrlEncoded
     @POST("getHouseUploaded.php")
     Call<List<House>> getHouseUploaded(@Field("id")int id);
+
+    @FormUrlEncoded
+    @POST("updateInfoHouse.php")
+    Call<String> updateInfoHouse(@Field("id") int id, @Field("title") String title
+            , @Field("address") String address, @Field("object") int object
+            , @Field("desc") String desc, @Field("contact") String contact
+            , @Field("acreage") float acreage, @Field("price") float price
+            , @Field("maxpeo") int maxpeo, @Field("latlng") String latlng, @Field("state") int state);
 
     @FormUrlEncoded
     @POST("deleteHouse.php")
@@ -89,8 +124,20 @@ public interface DataClient
     Call<String> bookRoom(@Field("idUser") int idUser, @Field("idHouse") int idHouse);
 
     @FormUrlEncoded
+    @POST("checkUserIsBooker.php")
+    Call<String> checkUserIsBooker(@Field("idUser") int idUser, @Field("idHouse") int idHouse);
+
+    @FormUrlEncoded
     @POST("deleteBooking.php")
     Call<String> deleteBooking(@Field("idUser") int idUser, @Field("idHouse") int idHouse);
+
+    @FormUrlEncoded
+    @POST("checkNewBooking.php")
+    Call<List<IDBooking>> checkNewBooking(@Field("idUser") int idUser);
+
+    @FormUrlEncoded
+    @POST("updateCheckSeenBooking.php")
+    Call<String> updateCheckSeen(@Field("idBooking") int id);
 
     @FormUrlEncoded
     @POST("getListPeopleBooking.php")
