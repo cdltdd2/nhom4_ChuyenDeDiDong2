@@ -68,6 +68,30 @@ public class FavoriteActivity extends AppCompatActivity
         gvFavorite.setOnItemClickListener(this);
     }
 
+    private void getHouses() {
+        DataClient dataClient = APIClient.getData();
+        Call<List<House>> callBack = dataClient.getHouseFavorite(idUser);
+        callBack.enqueue(new Callback<List<House>>() {
+            @Override
+            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+                ArrayList<House> arrHouse = (ArrayList<House>) response.body();
+                arrFavorite.clear();
+                if (arrHouse.size() > 0){
+                    for (int i = arrHouse.size() - 1; i >= 0; i--){
+                        if (arrHouse.get(i).getCHECKUP() == 1){
+                            arrFavorite.add(arrHouse.get(i));
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<House>> call, Throwable t) {
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
