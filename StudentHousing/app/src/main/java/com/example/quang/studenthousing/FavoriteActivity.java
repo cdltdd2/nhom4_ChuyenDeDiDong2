@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavoriteActivity extends AppCompatActivity
+public class FavoriteActivity extends AppCompatActivity implements AdapterView.OnItemClickListener
 {
 
     private Toolbar toolbar;
@@ -98,6 +98,15 @@ public class FavoriteActivity extends AppCompatActivity
         finish();
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void getFav() {
         DataClient dataClient = APIClient.getData();
         Call<List<Favorite>> callBack = dataClient.getFavCount(idUser);
@@ -117,6 +126,16 @@ public class FavoriteActivity extends AppCompatActivity
             public void onFailure(Call<List<Favorite>> call, Throwable t) {
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(this,InfoHouseActivity.class);
+        intent.putExtra("house",arrFavorite.get(i));
+        intent.putExtra("arrFav",arrFav);
+        startActivity(intent);
+
+        finish();
     }
 
 }
