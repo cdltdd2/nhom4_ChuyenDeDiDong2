@@ -25,8 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavoriteActivity extends AppCompatActivity implements AdapterView.OnItemClickListener
-{
+public class FavoriteActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private Toolbar toolbar;
     private GridView gvFavorite;
@@ -42,6 +41,7 @@ public class FavoriteActivity extends AppCompatActivity implements AdapterView.O
 
         findId();
         initView();
+        loadData();
     }
 
     private void findId() {
@@ -66,6 +66,17 @@ public class FavoriteActivity extends AppCompatActivity implements AdapterView.O
         gvFavorite.setAdapter(adapter);
 
         gvFavorite.setOnItemClickListener(this);
+    }
+
+    private void loadData() {
+        SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+        String user = pre.getString("user","");
+        if (!user.equalsIgnoreCase("")){
+            String[] arr = user.split("-");
+            idUser = Integer.parseInt(arr[0]);
+        }
+        getHouses();
+        getFav();
     }
 
     private void getHouses() {
