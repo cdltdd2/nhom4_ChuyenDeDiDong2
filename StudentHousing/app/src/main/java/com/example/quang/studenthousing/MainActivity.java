@@ -145,6 +145,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lnBooked = findViewById(R.id.lnBooked);
     }
 
+    // duy: load du lieu o man hinh chinh
+    private void loadData()
+    {
+        SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+        String user = pre.getString("user","");
+        //kiem tra permission la 0 hoac 2: neu 0 la user thuong, 2 la user da dky dang bai
+        if (!user.equalsIgnoreCase("")){
+            String[] arr = user.split("-");
+            idUser = Integer.parseInt(arr[0]);
+            this.user = arr[1];
+            pass = arr[2];
+            name = arr[3];
+            phone = arr[4];
+            permission = Integer.parseInt(arr[5]);
+
+            tvName.setText(name);
+
+            //lay sdt
+            if (phone.equalsIgnoreCase("null")){
+                tvPhone.setText(R.string.no_phone);
+            }else {
+                tvPhone.setText(phone);
+            }
+
+        }
+
+        //khoi tao mang ds bai
+        arrHouses = new ArrayList<>();
+
+        //khoi tao mang ds bai yeu thich cua user nay
+        arrFav = new ArrayList<>();
+
+        //do du lieu bai dang (item house) vao adapter
+        adapter = new GridViewHouseAdapter(MainActivity.this,R.layout.item_house,arrHouses);
+        gvAllHouses.setAdapter(adapter);
+
+        //request lay ds bai
+        getHouses();
+    }
+
     /*
      * xóa mảng danh sach yeu thich sau do tai lai dữ liệu app thông qua đối tượng progressDialog của thư viện SpotsDialog(dialog dấu chấm)
      * lấy dữ liệu
@@ -181,25 +221,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //lay danh sach bai
     private void getHouses()
     {
+        //tai lai ds
         progressDialog.show();
         DataClient dataClient = APIClient.getData();
+        //request len server lay danh sach tat ca bai dang
         Call<List<House>> callBack = dataClient.getAllHouse();
-        callBack.enqueue(new Callback<List<House>>() {
+
+        //tra ve ket qua dang json sau do parse sang doi tuong java bang gson
+        callBack.enqueue(new Callback<List<House>>()
+        {
+            //truong hop co ket qua tra ve
             @Override
-            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+            public void onResponse(Call<List<House>> call, Response<List<House>> response)
+            {
                 ArrayList<House> arrHouse = (ArrayList<House>) response.body();
+                //co du lieu
                 if (arrHouse.size() > 0){
+                    //xoa du lieu mang
                     arrHouses.clear();
+
+                    //chay vong lap lay tung item house
                     for (int i = arrHouse.size() - 1; i >= 0; i--){
+                        //bai da dc admin duyet se co checkup la 1
                         if (arrHouse.get(i).getCHECKUP() == 1){
+                            //them vao mang house
                             arrHouses.add(arrHouse.get(i));
                         }
                     }
+
+                    //kiem tra co thay doi gi ko
                     adapter.notifyDataSetChanged();
                 }
                 progressDialog.dismiss();
             }
 
+            //truong hop co loi thi ko tai lai ds
             @Override
             public void onFailure(Call<List<House>> call, Throwable t) {
                 progressDialog.dismiss();
@@ -696,7 +752,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.lnUploaded:
                 if (permission == 0){
                     drawerLayout.closeDrawers();
-                    needPermissionPoster();
                 }else if (permission == 2){
                     startActivity(new Intent(this, PostUploadedActivity.class));
                 }
