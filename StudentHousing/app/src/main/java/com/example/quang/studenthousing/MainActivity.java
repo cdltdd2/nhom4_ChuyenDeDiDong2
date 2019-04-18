@@ -628,8 +628,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @SuppressLint({"ResourceAsColor", "NewApi"})
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
             //toan: map
             case R.id.btnMap:
                 Intent i = new Intent(this, MapActivity.class);
@@ -654,6 +656,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dialogSort.show();
                 drawerLayout.closeDrawers();
                 break;
+
+                //duy: bai da dang
+            case R.id.lnUploaded:
+                if (permission == 0){
+                    drawerLayout.closeDrawers();
+                    needPermissionPoster();
+                }else if (permission == 2){
+                    startActivity(new Intent(this, PostUploadedActivity.class));
+                }
+                drawerLayout.closeDrawers();
+                break;
+
 
             case R.id.lnLogout:
                 SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
