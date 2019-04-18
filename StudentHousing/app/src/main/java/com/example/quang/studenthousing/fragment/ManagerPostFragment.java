@@ -15,9 +15,14 @@ import com.example.quang.studenthousing.ManagerActivity;
 import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.adapter.GridViewHouseRequestAdapter;
 import com.example.quang.studenthousing.object.House;
+import com.example.quang.studenthousing.services.APIClient;
+import com.example.quang.studenthousing.services.DataClient;
 import java.util.ArrayList;
+import java.util.List;
 import dmax.dialog.SpotsDialog;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ManagerPostFragment extends Fragment implements AdapterView.OnItemClickListener {
 
@@ -40,6 +45,7 @@ public class ManagerPostFragment extends Fragment implements AdapterView.OnItemC
     public void onStart() {
         super.onStart();
         initViews();
+        loadData();
     }
 
     private void findID(View view) {
@@ -55,7 +61,37 @@ public class ManagerPostFragment extends Fragment implements AdapterView.OnItemC
         gvAllHousesRequest.setOnItemClickListener(this);
     }
 
+    //tai lai ds
+    private void loadData() {
+        progressDialog.show();
+        DataClient dataClient = APIClient.getData();
+        Call<List<House>> callBack = dataClient.getAllHouse();
+        callBack.enqueue(new Callback<List<House>>() {
+            @Override
+            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+                ArrayList<House> arrHouse = (ArrayList<House>) response.body();
+                //co du lieu
+                if (arrHouse.size() > 0){
+                    for (int i = arrHouse.size() - 1; i >= 0; i--){
+                        //bai chua kiem duyet se co trang thai la 0
+                        if (arrHouse.get(i).getCHECKUP() == 0){
+                            //them bai chua duyet vao mang
+                            arrHouses.add(arrHouse.get(i));
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+                progressDialog.dismiss();
+            }
 
+            @Override
+            public void onFailure(Call<List<House>> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    //nhan item house se chuyen qua man hinh thong tin chi tiet bai dang do
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(activity,InfoHouseActivity.class);
