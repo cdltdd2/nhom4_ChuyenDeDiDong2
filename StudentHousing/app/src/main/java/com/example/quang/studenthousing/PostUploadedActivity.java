@@ -36,6 +36,7 @@ public class PostUploadedActivity extends AppCompatActivity implements AdapterVi
 
         findId();
         initView();
+        loadData();
     }
 
 
