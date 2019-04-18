@@ -177,6 +177,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    //lay danh sach bai
+    private void getHouses()
+    {
+        progressDialog.show();
+        DataClient dataClient = APIClient.getData();
+        Call<List<House>> callBack = dataClient.getAllHouse();
+        callBack.enqueue(new Callback<List<House>>() {
+            @Override
+            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+                ArrayList<House> arrHouse = (ArrayList<House>) response.body();
+                if (arrHouse.size() > 0){
+                    arrHouses.clear();
+                    for (int i = arrHouse.size() - 1; i >= 0; i--){
+                        if (arrHouse.get(i).getCHECKUP() == 1){
+                            arrHouses.add(arrHouse.get(i));
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<House>> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
+    }
+
     private void initViews() {
         setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -199,9 +229,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toggle.syncState();
 
         btnSearch.setOnClickListener(this);
+        lnAllHouses.setOnClickListener(this);
         lnFavorite.setOnClickListener(this);
         lnSort.setOnClickListener(this);
         lnLogout.setOnClickListener(this);
+        lnUploaded.setOnClickListener(this);
+        lnBooked.setOnClickListener(this);
+
+        gvAllHouses.setOnItemClickListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             gvAllHouses.setNestedScrollingEnabled(true);
         }
