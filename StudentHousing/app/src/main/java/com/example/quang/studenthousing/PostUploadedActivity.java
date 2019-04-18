@@ -63,6 +63,16 @@ public class PostUploadedActivity extends AppCompatActivity implements AdapterVi
         gvPostUploaded.setOnItemClickListener(this);
     }
 
+    private void loadData() {
+        SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+        String user = pre.getString("user","");
+        if (!user.equalsIgnoreCase("")){
+            String[] arr = user.split("-");
+            idUser = Integer.parseInt(arr[0]);
+        }
+        getHouses();
+    }
+
     private void getHouses() {
         DataClient dataClient = APIClient.getData();
         Call<List<House>> callBack = dataClient.getHouseUploaded(idUser);
