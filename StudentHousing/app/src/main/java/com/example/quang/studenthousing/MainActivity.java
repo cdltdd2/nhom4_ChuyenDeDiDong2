@@ -657,10 +657,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.lnLogout:
                 SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
-                SharedPreferences.Editor edit=pre.edit();
-                edit.putString("user","");
+                SharedPreferences.Editor edit = pre.edit();
+                edit.putString("user", "");
                 edit.commit();
-                if (isMyServiceRunning(AppService.class)){
+                if (isMyServiceRunning(AppService.class)) {
                     Intent myService = new Intent(MainActivity.this, AppService.class);
                     stopService(myService);
                 }
@@ -672,32 +672,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnSearch:
                 dialogSearch.show();
                 break;
-
-
-            private void showDialogCofirmRegisterPoster () {
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(MainActivity.this);
-                }
-                builder.setTitle(R.string.confirm)
-                        .setMessage(R.string.verify_register_poster)
-                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
-
         }
     }
+
+
+    private void showDialogCofirmRegisterPoster () {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(MainActivity.this);
+        }
+        builder.setTitle(R.string.confirm)
+                .setMessage(R.string.verify_register_poster)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
