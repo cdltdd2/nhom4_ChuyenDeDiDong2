@@ -672,6 +672,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnSearch:
                 dialogSearch.show();
                 break;
+
+                //duy: danh sach lich su dat phong
+            case R.id.lnBooked:
+                startActivity(new Intent(this, ListBookingActivity.class));
+                break;
         }
     }
 
