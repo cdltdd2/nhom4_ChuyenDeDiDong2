@@ -1,9 +1,12 @@
 package com.example.quang.studenthousing;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -39,14 +42,22 @@ import com.example.quang.studenthousing.object.District;
 import com.example.quang.studenthousing.object.Favorite;
 import com.example.quang.studenthousing.object.House;
 import com.example.quang.studenthousing.object.Ward;
+import com.example.quang.studenthousing.services.APIClient;
+import com.example.quang.studenthousing.services.AppService;
+import com.example.quang.studenthousing.services.DataClient;
 import com.example.quang.studenthousing.utils.DatabaseUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import dmax.dialog.SpotsDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener
+{
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -95,6 +106,24 @@ public class MainActivity extends AppCompatActivity {
         initDialogSearch();
         initDialogSort();
         initDialogSearch();
+
+        if (!isMyServiceRunning(AppService.class)){
+            Intent myService = new Intent(MainActivity.this, AppService.class);
+            startService(myService);
+        }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass)
+    {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+        {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void findID() {
@@ -116,6 +145,38 @@ public class MainActivity extends AppCompatActivity {
         lnBooked = findViewById(R.id.lnBooked);
     }
 
+    /*
+     * xóa mảng danh sach yeu thich sau do tai lai dữ liệu app thông qua đối tượng progressDialog của thư viện SpotsDialog(dialog dấu chấm)
+     * lấy dữ liệu
+     *dismiss: đóng dialog
+     * */
+    private void getFav()
+    {
+        arrFav.clear();
+        progressDialog.show();
+        DataClient dataClient = APIClient.getData();
+        Call<List<Favorite>> callBack = dataClient.getFavCount(idUser);
+        callBack.enqueue(new Callback<List<Favorite>>()
+        {
+            @Override
+            public void onResponse(Call<List<Favorite>> call, Response<List<Favorite>> response)
+            {
+                ArrayList<Favorite> arr = (ArrayList<Favorite>) response.body();
+                if (arr.size() > 0){
+                    for (int i = arr.size() - 1; i >= 0; i--){
+                        arrFav.add(arr.get(i));
+                    }
+                }
+                btnCountFavorite.setText(arrFav.size()+"");
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<Favorite>> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
+    }
     private void initViews() {
         setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -137,6 +198,10 @@ public class MainActivity extends AppCompatActivity {
         };
         toggle.syncState();
 
+        btnSearch.setOnClickListener(this);
+        lnFavorite.setOnClickListener(this);
+        lnSort.setOnClickListener(this);
+        lnLogout.setOnClickListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             gvAllHouses.setNestedScrollingEnabled(true);
         }
@@ -590,6 +655,24 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
                 break;
 
+            case R.id.lnLogout:
+                SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+                SharedPreferences.Editor edit=pre.edit();
+                edit.putString("user","");
+                edit.commit();
+                if (isMyServiceRunning(AppService.class)){
+                    Intent myService = new Intent(MainActivity.this, AppService.class);
+                    stopService(myService);
+                }
+                startActivity(new Intent(this, AccountActivity.class));
+                finish();
+
+                break;
+
+            case R.id.btnSearch:
+                dialogSearch.show();
+                break;
+
 
             private void showDialogCofirmRegisterPoster () {
                 AlertDialog.Builder builder;
@@ -614,5 +697,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }
