@@ -827,6 +827,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setMessage(R.string.verify_register_poster)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        registerPoster(idUser);
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
