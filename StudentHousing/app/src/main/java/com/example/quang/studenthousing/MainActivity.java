@@ -289,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lnFavorite.setOnClickListener(this);
         lnSort.setOnClickListener(this);
         lnLogout.setOnClickListener(this);
+        lnRegisterPoster.setOnClickListener(this);
         lnUploaded.setOnClickListener(this);
         lnBooked.setOnClickListener(this);
 
@@ -770,6 +771,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 startActivity(new Intent(this, AccountActivity.class));
                 finish();
+
+                break;
+
+            //dat: dki dang bai
+            case R.id.lnRegisterPoster:
+                if (permission == 0){
+                    showDialogCofirmRegisterPoster();
+                }else if (permission == 2){
+                    Snackbar snackbar = Snackbar
+                            .make(toolbar, R.string.noti_poster, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    drawerLayout.closeDrawers();
+                }
 
                 break;
 
