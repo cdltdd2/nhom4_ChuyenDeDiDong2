@@ -12,12 +12,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +40,7 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.example.quang.studenthousing.InfoHouseActivity;
 import com.example.quang.studenthousing.adapter.GridViewHouseAdapter;
 import com.example.quang.studenthousing.object.City;
 import com.example.quang.studenthousing.object.District;
@@ -833,10 +838,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .show();
     }
 
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    //dat: dki dang bai
+    private void registerPoster(int id){
+        DataClient dataClient = APIClient.getData();
+        Call<String> callBack = dataClient.registerPoster(id);
+        callBack.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("exists")){
+                    Snackbar snackbar = Snackbar
+                            .make(toolbar, R.string.verify_exists, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }else if (response.body().equals("success")){
+                    Snackbar snackbar = Snackbar
+                            .make(toolbar, R.string.verify_success, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }else if (response.body().equals("fail")){
+                    Snackbar snackbar = Snackbar
+                            .make(toolbar, R.string.verify_fail, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
 
     //dat: chuyen sang activity infor house khi nhân vao item house o man hinh chinh
     @Override
