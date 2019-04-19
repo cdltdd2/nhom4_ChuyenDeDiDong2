@@ -129,6 +129,28 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
 
     }
 
+    private void getComment() {
+        arrComment.clear();
+        DataClient dataClient = APIClient.getData();
+        Call<List<Comment>> callBack = dataClient.getComment(house.getIDHOUSE());
+        callBack.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                ArrayList<Comment> arr = (ArrayList<Comment>) response.body();
+                if (arr.size() > 0){
+                    for (int i = arr.size() - 1; i >= 0; i--){
+                        arrComment.add(arr.get(i));
+                    }
+                    adapterComment.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+            }
+        });
+    }
+
+
     private void findID() {
         toolbar = findViewById(R.id.toolbar);
         imHouse = findViewById(R.id.imHouseInfo);
