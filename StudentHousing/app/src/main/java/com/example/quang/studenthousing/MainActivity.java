@@ -861,6 +861,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                      snackbar.show();
                  }
              }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
         });
     }
 
