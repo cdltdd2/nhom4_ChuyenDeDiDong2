@@ -230,15 +230,35 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         adapterComment = new ListViewCommentAdapter(this,R.layout.item_listview_comment,arrComment);
         lvComment.setAdapter(adapterComment);
 
-        btnSend.setOnClickListener((View.OnClickListener) this);
-        btnAddFavorite.setOnClickListener((View.OnClickListener) this);
+        btnSend.setOnClickListener(this);
+        btnAddFavorite.setOnClickListener(this);
     }
 
+    private void initDialogSliding(int currentPhoto) {
+        dialogSlidingPhoto = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            dialogSlidingPhoto.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+        else {
+            dialogSlidingPhoto.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        }
+        dialogSlidingPhoto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogSlidingPhoto.setContentView(R.layout.dialog_slide_photo);
+        dialogSlidingPhoto.setCancelable(true);
 
+        ViewPager viewPager = dialogSlidingPhoto.findViewById(R.id.viewpager);
+        ImageButton btnDimiss = dialogSlidingPhoto.findViewById(R.id.btnDimissDialogSliding);
+        SlidingPhotoAdapter adapterSliding = new SlidingPhotoAdapter(getApplicationContext(),arrPhoto);
+        viewPager.setAdapter(adapterSliding);
+        viewPager.setCurrentItem(currentPhoto);
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        btnDimiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSlidingPhoto.dismiss();
+            }
+        });
 
+        dialogSlidingPhoto.show();
     }
 
     //dat: dky va huy dky dat phong
