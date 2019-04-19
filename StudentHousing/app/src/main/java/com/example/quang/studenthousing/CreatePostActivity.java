@@ -2,6 +2,7 @@ package com.example.quang.studenthousing;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,14 +16,20 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.quang.studenthousing.adapter.GridViewImageAdapter;
 import com.example.quang.studenthousing.object.City;
 import com.example.quang.studenthousing.object.District;
+import com.example.quang.studenthousing.object.House;
 import com.example.quang.studenthousing.object.Ward;
+import com.example.quang.studenthousing.services.APIClient;
+import com.example.quang.studenthousing.services.DataClient;
+import com.example.quang.studenthousing.utils.DatabaseUtils;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import java.util.List;
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -55,6 +62,8 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
     private int idUser;
     private boolean checkClickCreate;
+
+    private LatLng currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,11 +291,8 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                 }
 
                 String address = street + ", " + ward + ", " + distric + ", " + city;
-
-                GetLatLng getLatLng = new GetLatLng();
-                getLatLng.execute(address);
-
                 break;
+
             case R.id.btnBackAddPost:
                 finish();
                 break;
