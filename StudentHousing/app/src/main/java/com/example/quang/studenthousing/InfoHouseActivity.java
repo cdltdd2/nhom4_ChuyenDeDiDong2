@@ -518,7 +518,23 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         return Double.parseDouble(arrStr2[1]);
     }
 
+    @Override
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
+            case R.id.btnSendComment:
+                String text = edtComment.getText().toString();
+                if (text.isEmpty()){
+                    return;
+                }
 
+                String currentTime = Calendar.getInstance().getTime().toString();
+                insertComment(text,house.getIDUSER(),house.getIDHOUSE(), currentTime);
+                edtComment.setText("");
+                break;
+        }
+    }
 
     private void insertComment(String text, int idUser, int idHouse, String time){
         DataClient dataClient = APIClient.getData();
