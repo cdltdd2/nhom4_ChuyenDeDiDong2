@@ -141,7 +141,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
 
     //state: chua ket noi db
-    private void loadSpinner(){
+    private void loadSpinner() {
         DatabaseUtils databaseUtils = new DatabaseUtils(this);
         final ArrayList<City> arrCity = databaseUtils.getCity();
         final ArrayList<District> arrDistrict = databaseUtils.getDistrict();
@@ -151,12 +151,12 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         ArrayList<String> arrDistrictString = new ArrayList<>();
         ArrayList<String> arrWardString = new ArrayList<>();
 
-        for (int i=0; i<arrCity.size();i++){
+        for (int i = 0; i < arrCity.size(); i++) {
             arrCityString.add(arrCity.get(i).getName());
         }
 
         // spinner city
-        ArrayAdapter<String> adapterCity=new ArrayAdapter<String>(this
+        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this
                 , android.R.layout.simple_spinner_item, arrCityString);
         //phải gọi lệnh này để hiển thị danh sách cho Spinner
         adapterCity.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
@@ -181,8 +181,25 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         //Thiết lập adapter cho Spinner
         spinnerWard.setAdapter(adapterWard);
 
-    }
+        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String str = arrCityString.get(i);
+                arrDistrictString.clear();
+                for (int index = 0; index < arrDistrict.size(); index++) {
+                    if (arrDistrict.get(index).getMaCity().equalsIgnoreCase(arrCity.get(i).getMa())) {
+                        arrDistrictString.add(arrDistrict.get(index).getName());
+                    }
+                }
+                adapterDistrict.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
     @Override
     public void onClick(View view)
     {
