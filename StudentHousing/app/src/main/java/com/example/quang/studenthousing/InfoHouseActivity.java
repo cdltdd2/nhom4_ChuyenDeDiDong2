@@ -45,7 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class InfoHouseActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
+public class InfoHouseActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener  {
 
     private Toolbar toolbar;
     private ImageView imHouse;
@@ -83,9 +83,51 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
 
         findID();
         initViews();
-
+        loadData();
     }
 
+    private void loadData()
+    {
+        SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+        String user = pre.getString("user","");
+        if (!user.equalsIgnoreCase("")){
+            String[] arr = user.split("-");
+            idUser = Integer.parseInt(arr[0]);
+            permission = Integer.parseInt(arr[5]);
+
+        }
+
+        Intent intent = getIntent();
+        house = (House) intent.getSerializableExtra("house");
+
+        Glide.with(this).load(APIClient.BASE_URL+house.getIMAGE()).into(imHouse);
+        tvTitle.setText(house.getTITLE());
+        tvAddress.setText(house.getADDRESS());
+        tvPhone.setText(house.getCONTACT());
+        tvPrice.setText(getString(R.string.price) + ": "+house.getPRICE() + " " + getString(R.string.million_per_month));
+        tvAcreage.setText(getString(R.string.acreage) + ": "+house.getACREAGE() + " " + getString(R.string.meter2));
+        if (house.getOBJECT() == 1){
+            tvObject.setText(R.string.object_male);
+        }else if(house.getOBJECT() == 0){
+            tvObject.setText(R.string.object_female);
+        }else {
+            tvObject.setText(R.string.object_both);
+        }
+
+        state = house.getSTATE();
+        if (state == 1){
+            tvState.setText(R.string.booked);
+            tvState.setTextColor(Color.RED);
+        }else {
+            tvState.setText(R.string.un_book);
+            tvState.setTextColor(Color.GREEN);
+        }
+
+
+        tvMaxPeo.setText(getString(R.string.max_people) + ": " + house.getMAXPEO());
+        tvStrongInfo.setText(house.getDESC());
+
+    }
 
     private void findID() {
         toolbar = findViewById(R.id.toolbar);
