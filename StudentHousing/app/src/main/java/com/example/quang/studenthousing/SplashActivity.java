@@ -46,14 +46,14 @@ public class SplashActivity extends AppCompatActivity {
                     }
                     else if (permission == 1)
                     {
-                        startActivity(new Intent(SplashActivity.this, com.example.quang.studenthousing.ManagerActivity.class));
+                        startActivity(new Intent(SplashActivity.this, ManagerActivity.class));
                         finish();
                     }
 
                 }
                 else
                 {
-                    startActivity(new Intent(SplashActivity.this, com.example.quang.studenthousing.AccountActivity.class));
+                    startActivity(new Intent(SplashActivity.this, AccountActivity.class));
                     finish();
                 }
             }
