@@ -139,6 +139,10 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
     //state: chua ket noi db
     private void loadSpinner(){
+        DatabaseUtils databaseUtils = new DatabaseUtils(this);
+        final ArrayList<City> arrCity = databaseUtils.getCity();
+        final ArrayList<District> arrDistrict = databaseUtils.getDistrict();
+        final ArrayList<Ward> arrWard = databaseUtils.getWard();
 
         ArrayList<String> arrCityString = new ArrayList<>();
         ArrayList<String> arrDistrictString = new ArrayList<>();
