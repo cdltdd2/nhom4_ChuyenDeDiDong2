@@ -147,6 +147,9 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
 
         tvMaxPeo.setText(getString(R.string.max_people) + ": " + house.getMAXPEO());
         tvStrongInfo.setText(house.getDESC());
+        getPhoto();
+
+        getComment();
 
         checkFav = false;
 
