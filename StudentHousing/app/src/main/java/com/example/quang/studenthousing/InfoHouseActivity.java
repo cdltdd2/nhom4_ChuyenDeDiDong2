@@ -2,16 +2,23 @@ package com.example.quang.studenthousing;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -20,8 +27,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.quang.studenthousing.adapter.GridViewPhotoAdapter;
 import com.example.quang.studenthousing.adapter.ListViewCommentAdapter;
+import com.example.quang.studenthousing.adapter.SlidingPhotoAdapter;
 import com.example.quang.studenthousing.object.Comment;
 import com.example.quang.studenthousing.object.CustomListView;
 import com.example.quang.studenthousing.object.House;
@@ -36,7 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class InfoHouseActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
+public class InfoHouseActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener  {
 
     private Toolbar toolbar;
     private ImageView imHouse;
@@ -74,9 +83,93 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
 
         findID();
         initViews();
+        loadData();
+    }
+
+    private void loadData()
+    {
+        SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+        String user = pre.getString("user","");
+        if (!user.equalsIgnoreCase("")){
+            String[] arr = user.split("-");
+            idUser = Integer.parseInt(arr[0]);
+            permission = Integer.parseInt(arr[5]);
+
+        }
+
+        Intent intent = getIntent();
+        house = (House) intent.getSerializableExtra("house");
+
+        Glide.with(this).load(APIClient.BASE_URL+house.getIMAGE()).into(imHouse);
+        tvTitle.setText(house.getTITLE());
+        tvAddress.setText(house.getADDRESS());
+        tvPhone.setText(house.getCONTACT());
+        tvPrice.setText(getString(R.string.price) + ": "+house.getPRICE() + " " + getString(R.string.million_per_month));
+        tvAcreage.setText(getString(R.string.acreage) + ": "+house.getACREAGE() + " " + getString(R.string.meter2));
+        if (house.getOBJECT() == 1){
+            tvObject.setText(R.string.object_male);
+        }else if(house.getOBJECT() == 0){
+            tvObject.setText(R.string.object_female);
+        }else {
+            tvObject.setText(R.string.object_both);
+        }
+
+        state = house.getSTATE();
+        if (state == 1){
+            tvState.setText(R.string.booked);
+            tvState.setTextColor(Color.RED);
+        }else {
+            tvState.setText(R.string.un_book);
+            tvState.setTextColor(Color.GREEN);
+        }
+
+
+        tvMaxPeo.setText(getString(R.string.max_people) + ": " + house.getMAXPEO());
+        tvStrongInfo.setText(house.getDESC());
 
     }
 
+    private void getComment() {
+        arrComment.clear();
+        DataClient dataClient = APIClient.getData();
+        Call<List<Comment>> callBack = dataClient.getComment(house.getIDHOUSE());
+        callBack.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                ArrayList<Comment> arr = (ArrayList<Comment>) response.body();
+                if (arr.size() > 0){
+                    for (int i = arr.size() - 1; i >= 0; i--){
+                        arrComment.add(arr.get(i));
+                    }
+                    adapterComment.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+            }
+        });
+    }
+
+    private void getPhoto(){
+        DataClient dataClient = APIClient.getData();
+        Call<List<UrlPhoto>> callBack = dataClient.getPhotoInfo(house.getIDHOUSE());
+        callBack.enqueue(new Callback<List<UrlPhoto>>() {
+            @Override
+            public void onResponse(Call<List<UrlPhoto>> call, Response<List<UrlPhoto>> response) {
+                ArrayList<UrlPhoto> arr = (ArrayList<UrlPhoto>) response.body();
+                if (arr.size() > 0){
+                    for (int i = arr.size() - 1; i >= 0; i--){
+                        arrPhoto.add(arr.get(i));
+                    }
+                    adapterPhoto.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<UrlPhoto>> call, Throwable t) {
+                Toast.makeText(InfoHouseActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void findID() {
         toolbar = findViewById(R.id.toolbar);
@@ -195,6 +288,61 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_book_info, menu);
+        item =  menu.getItem(0);
+
+        SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+        String user = pre.getString("user","");
+        if (!user.equalsIgnoreCase("")){
+            String[] arr = user.split("-");
+            idUser = Integer.parseInt(arr[0]);
+            permission = Integer.parseInt(arr[5]);
+
+        }
+        Intent intent = getIntent();
+        House h = (House) intent.getSerializableExtra("house");
+
+        if (idUser == h.getIDUSER()){
+            item.setVisible(false);
+        }
+
+        if (permission == 1){
+            item.setVisible(false);
+        }else {
+            if (h.getSTATE() == 0){
+                item.setIcon(R.drawable.icon_book_white);
+                checkBook = false;
+            }else {
+                DataClient dataClient = APIClient.getData();
+                Call<String> callBack = dataClient.checkUserIsBooker(idUser,h.getIDHOUSE());
+                callBack.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (response.body().equals("true")){
+                            item.setIcon(R.drawable.icon_unbook_white);
+                            checkBook = true;
+                        }else if (response.body().equals("false")){
+                            item.setVisible(false);
+                            checkBook = false;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(InfoHouseActivity.this, "fail2", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+
+
+
+        return true;
     }
 
     private void deleteBook(){

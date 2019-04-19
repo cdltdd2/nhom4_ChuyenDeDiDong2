@@ -25,8 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavoriteActivity extends AppCompatActivity
-{
+public class FavoriteActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private Toolbar toolbar;
     private GridView gvFavorite;
@@ -42,6 +41,7 @@ public class FavoriteActivity extends AppCompatActivity
 
         findId();
         initView();
+        loadData();
     }
 
     private void findId() {
@@ -68,9 +68,84 @@ public class FavoriteActivity extends AppCompatActivity
         gvFavorite.setOnItemClickListener(this);
     }
 
+    private void loadData() {
+        SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+        String user = pre.getString("user","");
+        if (!user.equalsIgnoreCase("")){
+            String[] arr = user.split("-");
+            idUser = Integer.parseInt(arr[0]);
+        }
+        getHouses();
+        getFav();
+    }
+
+    private void getHouses() {
+        DataClient dataClient = APIClient.getData();
+        Call<List<House>> callBack = dataClient.getHouseFavorite(idUser);
+        callBack.enqueue(new Callback<List<House>>() {
+            @Override
+            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+                ArrayList<House> arrHouse = (ArrayList<House>) response.body();
+                arrFavorite.clear();
+                if (arrHouse.size() > 0){
+                    for (int i = arrHouse.size() - 1; i >= 0; i--){
+                        if (arrHouse.get(i).getCHECKUP() == 1){
+                            arrFavorite.add(arrHouse.get(i));
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<House>> call, Throwable t) {
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void getFav() {
+        DataClient dataClient = APIClient.getData();
+        Call<List<Favorite>> callBack = dataClient.getFavCount(idUser);
+        callBack.enqueue(new Callback<List<Favorite>>() {
+            @Override
+            public void onResponse(Call<List<Favorite>> call, Response<List<Favorite>> response) {
+                ArrayList<Favorite> arr = (ArrayList<Favorite>) response.body();
+                arrFav.clear();
+                if (arr.size() > 0){
+                    for (int i = arr.size() - 1; i >= 0; i--){
+                        arrFav.add(arr.get(i));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Favorite>> call, Throwable t) {
+            }
+        });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(this,InfoHouseActivity.class);
+        intent.putExtra("house",arrFavorite.get(i));
+        intent.putExtra("arrFav",arrFav);
+        startActivity(intent);
+
         finish();
     }
 
