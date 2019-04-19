@@ -150,6 +150,26 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         });
     }
 
+    private void getPhoto(){
+        DataClient dataClient = APIClient.getData();
+        Call<List<UrlPhoto>> callBack = dataClient.getPhotoInfo(house.getIDHOUSE());
+        callBack.enqueue(new Callback<List<UrlPhoto>>() {
+            @Override
+            public void onResponse(Call<List<UrlPhoto>> call, Response<List<UrlPhoto>> response) {
+                ArrayList<UrlPhoto> arr = (ArrayList<UrlPhoto>) response.body();
+                if (arr.size() > 0){
+                    for (int i = arr.size() - 1; i >= 0; i--){
+                        arrPhoto.add(arr.get(i));
+                    }
+                    adapterPhoto.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<UrlPhoto>> call, Throwable t) {
+                Toast.makeText(InfoHouseActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void findID() {
         toolbar = findViewById(R.id.toolbar);
