@@ -25,7 +25,8 @@
         <activity android:name=".AccountActivity" />
         <activity android:name=".PermissionActivity" />
         <activity android:name=".MapActivity" />
-
+        <activity android:name=".FavoriteActivity" />
+        <service android:name=".services.AppService"/>
     </application>
 
 </manifest>
