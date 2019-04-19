@@ -1,9 +1,13 @@
 package com.example.quang.studenthousing;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -33,10 +37,20 @@ import com.example.quang.studenthousing.adapter.ListViewCommentAdapter;
 import com.example.quang.studenthousing.adapter.SlidingPhotoAdapter;
 import com.example.quang.studenthousing.object.Comment;
 import com.example.quang.studenthousing.object.CustomListView;
+import com.example.quang.studenthousing.object.Favorite;
 import com.example.quang.studenthousing.object.House;
 import com.example.quang.studenthousing.object.UrlPhoto;
 import com.example.quang.studenthousing.services.APIClient;
 import com.example.quang.studenthousing.services.DataClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
@@ -44,8 +58,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class InfoHouseActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener  {
+public class InfoHouseActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,OnMapReadyCallback, View.OnClickListener {
 
     private Toolbar toolbar;
     private ImageView imHouse;
@@ -72,6 +85,11 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
     private int permission;
     private House house;
     private int idUser;
+    private LatLng latLngLocation;
+
+    private GoogleMap mMap;
+    private ArrayList<Favorite> arrFav;
+    private boolean checkFav;
     private int state;
     private MenuItem item;
     private boolean checkBook;
@@ -123,6 +141,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
             tvState.setTextColor(Color.GREEN);
         }
 
+        latLngLocation = new LatLng(getLat(house.getLatlng()), getLng(house.getLatlng()));
 
         tvMaxPeo.setText(getString(R.string.max_people) + ": " + house.getMAXPEO());
         tvStrongInfo.setText(house.getDESC());
@@ -190,7 +209,9 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         btnSend = findViewById(R.id.btnSendComment);
         lvComment = findViewById(R.id.lvComments);
 
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapInfo);
+        mapFragment.getMapAsync(this);
     }
 
     private void initViews() {
@@ -416,6 +437,67 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         });
     }
 
+    //toan
+    @Override
+    public void onMapReady(GoogleMap googleMap)
+    {
+        mMap = googleMap;
+        String[] permissionList = {
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+        };
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (String p : permissionList) {
+                if (checkSelfPermission(p) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(permissionList, 0);
+                    return;
+                }
+            }
+        }
+
+        LatLng begin = latLngLocation;
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(begin));
+        CameraPosition position = new CameraPosition(begin, 14, 0, 0);
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+
+        Drawable circleDrawable = getResources().getDrawable(R.drawable.ic_location_pin);
+        BitmapDescriptor markerIcon = getMarkerIconFromDrawable(circleDrawable);
+
+        MarkerOptions options = new MarkerOptions();
+        options.position(begin);
+        options.title(house.getTITLE());
+        options.snippet(house.getADDRESS());
+        options.icon(markerIcon);
+
+        mMap.addMarker(options);
+    }
+
+    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
+        Canvas canvas = new Canvas();
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
 
 
+    private double getLat(String latLng){
+        String[] arrStr = latLng.split("\\(");
+        String[] arrStr2 = arrStr[1].split(",");
+
+        return Double.parseDouble(arrStr2[0]);
+    }
+
+    private double getLng(String latLng){
+        String[] arrStr = latLng.split("\\)");
+        String[] arrStr2 = arrStr[0].split(",");
+
+        return Double.parseDouble(arrStr2[1]);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }
