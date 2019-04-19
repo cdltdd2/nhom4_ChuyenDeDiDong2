@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -199,7 +200,33 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+
+        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                arrWardString.clear();
+                String maDistrict = null;
+                for (District d : arrDistrict){
+                    if (d.getName().equalsIgnoreCase(arrDistrictString.get(i))){
+                        maDistrict = d.getMa();
+                        break;
+                    }
+                }
+                for (int index=0 ;index<arrWard.size() ;index++){
+                    if (arrWard.get(index).getMaDistrict().equalsIgnoreCase(maDistrict)){
+                        arrWardString.add(arrWard.get(index).getName());
+                    }
+                }
+                adapterWard.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
+
     @Override
     public void onClick(View view)
     {
