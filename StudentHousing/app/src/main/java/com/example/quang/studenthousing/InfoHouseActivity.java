@@ -148,6 +148,21 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         tvMaxPeo.setText(getString(R.string.max_people) + ": " + house.getMAXPEO());
         tvStrongInfo.setText(house.getDESC());
 
+        checkFav = false;
+
+        if (permission == 1){
+            btnAddFavorite.setVisibility(View.GONE);
+        }else {
+            arrFav = (ArrayList<Favorite>) intent.getSerializableExtra("arrFav");
+            for (Favorite f: arrFav){
+                if (f.getIDHOUSE() == house.getIDHOUSE()){
+                    btnAddFavorite.setImageResource(R.drawable.icon_remove_favorite);
+                    checkFav = true;
+                    break;
+                }
+            }
+        }
+
     }
 
     private void getComment() {
