@@ -197,6 +197,61 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_book_info, menu);
+        item =  menu.getItem(0);
+
+        SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
+        String user = pre.getString("user","");
+        if (!user.equalsIgnoreCase("")){
+            String[] arr = user.split("-");
+            idUser = Integer.parseInt(arr[0]);
+            permission = Integer.parseInt(arr[5]);
+
+        }
+        Intent intent = getIntent();
+        House h = (House) intent.getSerializableExtra("house");
+
+        if (idUser == h.getIDUSER()){
+            item.setVisible(false);
+        }
+
+        if (permission == 1){
+            item.setVisible(false);
+        }else {
+            if (h.getSTATE() == 0){
+                item.setIcon(R.drawable.icon_book_white);
+                checkBook = false;
+            }else {
+                DataClient dataClient = APIClient.getData();
+                Call<String> callBack = dataClient.checkUserIsBooker(idUser,h.getIDHOUSE());
+                callBack.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (response.body().equals("true")){
+                            item.setIcon(R.drawable.icon_unbook_white);
+                            checkBook = true;
+                        }else if (response.body().equals("false")){
+                            item.setVisible(false);
+                            checkBook = false;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(InfoHouseActivity.this, "fail2", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+
+
+
+        return true;
+    }
+
     private void deleteBook(){
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.deleteBooking(idUser,house.getIDHOUSE());
