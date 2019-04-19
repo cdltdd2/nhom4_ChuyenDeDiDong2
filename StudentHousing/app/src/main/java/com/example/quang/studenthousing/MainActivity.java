@@ -798,8 +798,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //dat: ktra user da dki dang bai chua
+    @SuppressLint("NewApi")
+    private void needPermissionPoster(){
+        Snackbar.make(toolbar, R.string.need_permission, Snackbar.LENGTH_LONG)
+                .setAction(R.string.register, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showDialogCofirmRegisterPoster();
+                    }
+                }).setActionTextColor(getColor(R.color.btn)).show();
+    }
 
-    private void showDialogCofirmRegisterPoster () {
+    //dat: dialog xac nhan dki dang bai
+    private void showDialogCofirmRegisterPoster(){
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
