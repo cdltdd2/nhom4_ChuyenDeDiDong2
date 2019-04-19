@@ -1,10 +1,17 @@
 package com.example.quang.studenthousing;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +33,7 @@ import com.example.quang.studenthousing.services.APIClient;
 import com.example.quang.studenthousing.services.DataClient;
 import com.example.quang.studenthousing.utils.DatabaseUtils;
 import com.google.android.gms.maps.model.LatLng;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -388,4 +396,27 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    //truyen vao uri se ket noi den duog dẫn này, nó di vo dung bien cursor lam con tro de no duyet
+    //de coi ben trog nay no co nhung gi hay ko, neu nhu có sẽ get giá trị từ column đó ra
+    public String getRealPathFromURI (Uri contentUri) {
+        String path = null;
+        String[] proj = { MediaStore.MediaColumns.DATA };
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if (cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            path = cursor.getString(column_index);
+        }
+        cursor.close();
+        return path;
+    }
+
+
+    // Encode bitmap to String
+    public String getStringFromBitMap(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
 }
