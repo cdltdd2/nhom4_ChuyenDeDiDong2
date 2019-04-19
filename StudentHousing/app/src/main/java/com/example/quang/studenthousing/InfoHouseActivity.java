@@ -518,8 +518,25 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         return Double.parseDouble(arrStr2[1]);
     }
 
-    @Override
-    public void onClick(View v) {
 
+
+    private void insertComment(String text, int idUser, int idHouse, String time){
+        DataClient dataClient = APIClient.getData();
+        Call<String> callBack = dataClient.insertComment(idUser,idHouse,text, time);
+        callBack.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("success")){
+                    getComment();
+                }else if (response.body().equals("fail")){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(InfoHouseActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
