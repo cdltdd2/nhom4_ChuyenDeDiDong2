@@ -21,6 +21,10 @@ import com.example.quang.studenthousing.object.District;
 import com.example.quang.studenthousing.object.Ward;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CreatePostActivity extends AppCompatActivity implements View.OnClickListener
@@ -289,6 +293,93 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private void insert(){
+        String title = edtTitle.getText().toString();
+        String street = edtStreet.getText().toString();
+        String desc = edtDesc.getText().toString();
+        String phone = edtPhone.getText().toString();
 
+        String city = (String) spinnerCity.getSelectedItem();
+        String distric = (String) spinnerDistrict.getSelectedItem();
+        String ward = (String) spinnerWard.getSelectedItem();
+
+        int maxPeo = Integer.parseInt(edtMaxPeo.getText().toString());
+
+        String address = street + ", " + ward + ", " + distric + ", " + city;
+
+        int object = 1;
+        if (radObjectMale.isChecked()){
+            object = 1;
+        }else if (radObjectFemale.isChecked()) {
+            object = 2;
+        }else if (radObjectBoth.isChecked()){
+            object = 3;
+        }
+
+        String[] arrAcreage = tvAcreage.getText().toString().split(" ");
+        float acreage = Float.parseFloat(arrAcreage[0]);
+        String[] arrPrice = tvPrice.getText().toString().split(" ");
+        float price = Float.parseFloat(arrPrice[0]);
+
+
+        DataClient dataClient = APIClient.getData();
+        Call<List<House>> callBack = dataClient.createPost(title,address,object
+                , arrImage.get(0), desc, phone, acreage, price, maxPeo
+                , Calendar.getInstance().getTime().toString(), idUser, currentLocation.toString());
+        callBack.enqueue(new Callback<List<House>>() {
+            @Override
+            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+                ArrayList<House> arrHouse = (ArrayList<House>) response.body();
+                if (arrHouse.size() > 0){
+                    for (int i=0; i<arrImage.size(); i++){
+                        DataClient dataClient = APIClient.getData();
+                        Call<String> callback = dataClient.insertImageForHouse(arrImage.get(i),arrHouse.get(0).getIDHOUSE());
+                        int finalI = i;
+                        callback.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                if (response.body().equals("success")){
+                                    if (finalI == arrImage.size() - 1){
+                                        Snackbar snackbar = Snackbar
+                                                .make(edtDesc, R.string.verify_create_post, Snackbar.LENGTH_LONG);
+                                        snackbar.show();
+
+                                        CountDownTimer countDownTimer = new CountDownTimer(2000,1000) {
+                                            @Override
+                                            public void onTick(long l) {
+
+                                            }
+
+                                            @Override
+                                            public void onFinish() {
+                                                finish();
+                                            }
+                                        }.start();
+                                    }
+                                }else {
+                                    Toast.makeText(CreatePostActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Toast.makeText(CreatePostActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }else {
+                    Snackbar snackbar = Snackbar
+                            .make(edtDesc, R.string.fail, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<House>> call, Throwable t) {
+                Toast.makeText(CreatePostActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }
