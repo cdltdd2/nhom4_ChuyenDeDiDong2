@@ -459,6 +459,12 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         });
     }
 
+    //linh
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        initDialogSliding(i);
+    }
+
     //toan
     @Override
     public void onMapReady(GoogleMap googleMap)
