@@ -539,6 +539,19 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
                 insertComment(text,house.getIDUSER(),house.getIDHOUSE(), currentTime);
                 edtComment.setText("");
                 break;
+
+            //nguyen
+            case R.id.btnAddFavorite:
+                if (checkFav){
+                    checkFav = false;
+                    btnAddFavorite.setImageResource(R.drawable.icon_add_favorite);
+                    removeFavorite();
+                }else {
+                    checkFav = true;
+                    btnAddFavorite.setImageResource(R.drawable.icon_remove_favorite);
+                    addFavorite();
+                }
+                break;
         }
     }
 
