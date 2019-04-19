@@ -17,6 +17,8 @@ import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.presenter.login.PresenterLogicLogin;
 import com.example.quang.studenthousing.view.register.RegisterFragment;
 import com.facebook.login.LoginManager;
+
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class LoginFragment extends Fragment implements View.OnClickListener, ViewLogin
@@ -57,9 +59,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
         activity = (AccountActivity) getActivity();
         tvRegister.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-
         presenterLogicLogin = new PresenterLogicLogin(this);
-
     }
 
     @Override
