@@ -838,5 +838,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    //dat: chuyen sang activity infor house khi nhân vao item house o man hinh chinh
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(this, InfoHouseActivity.class);
+        intent.putExtra("house",arrHouses.get(i));
+        intent.putExtra("arrFav",arrFav);
+        startActivity(intent);
+    }
+
+    //dat: sau khi tam ngung se tai lai danh sach nha
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getHouses();
     }
 }
