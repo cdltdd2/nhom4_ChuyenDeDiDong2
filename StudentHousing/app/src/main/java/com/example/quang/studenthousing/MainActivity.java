@@ -843,23 +843,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void registerPoster(int id){
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.registerPoster(id);
-        callBack.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.body().equals("exists")){
-                    Snackbar snackbar = Snackbar
-                            .make(toolbar, R.string.verify_exists, Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                }else if (response.body().equals("success")){
-                    Snackbar snackbar = Snackbar
-                            .make(toolbar, R.string.verify_success, Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                }else if (response.body().equals("fail")){
-                    Snackbar snackbar = Snackbar
-                            .make(toolbar, R.string.verify_fail, Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                }
-            }
+        callBack.enqueue(new Callback<String>()
+        {
+             @Override
+             public void onResponse(Call<String> call, Response<String> response) {
+                 if (response.body().equals("exists")) {
+                     Snackbar snackbar = Snackbar
+                             .make(toolbar, R.string.verify_exists, Snackbar.LENGTH_LONG);
+                     snackbar.show();
+                 } else if (response.body().equals("success")) {
+                     Snackbar snackbar = Snackbar
+                             .make(toolbar, R.string.verify_success, Snackbar.LENGTH_LONG);
+                     snackbar.show();
+                 } else if (response.body().equals("fail")) {
+                     Snackbar snackbar = Snackbar
+                             .make(toolbar, R.string.verify_fail, Snackbar.LENGTH_LONG);
+                     snackbar.show();
+                 }
+             }
+        });
+    }
 
     //dat: chuyen sang activity infor house khi nhân vao item house o man hinh chinh
     @Override
