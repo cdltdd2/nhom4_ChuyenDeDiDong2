@@ -542,6 +542,28 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         }
     }
 
+    private void addFavorite(){
+        DataClient dataClient = APIClient.getData();
+        Call<String> callBack = dataClient.addFavorite(idUser,house.getIDHOUSE());
+        callBack.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("success")){
+                    Snackbar snackbar = Snackbar
+                            .make(btnAddFavorite, R.string.add_favorite_success, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }else if (response.body().equals("fail")){
+                    Toast.makeText(InfoHouseActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(InfoHouseActivity.this, "fail2", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
     private void removeFavorite(){
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.removeFavorite(idUser,house.getIDHOUSE());
