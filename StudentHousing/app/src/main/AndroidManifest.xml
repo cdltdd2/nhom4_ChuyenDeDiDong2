@@ -26,12 +26,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoHouseActivity" />
-        <activity android:name=".ManagerActivity" />
         <activity android:name=".AccountActivity" />
+        <activity android:name=".ManagerActivity" />
         <activity android:name=".PermissionActivity" />
         <activity android:name=".CreatePostActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".FavoriteActivity" />
+        <activity android:name=".PostUploadedActivity" />
+        <activity android:name=".ListBookingActivity"></activity>
         <service android:name=".services.AppService"/>
         <service android:name=".services.NotificationService"/>
     </application>
