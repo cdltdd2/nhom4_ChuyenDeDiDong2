@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 import com.example.quang.studenthousing.AccountActivity;
 import com.example.quang.studenthousing.R;
+import com.example.quang.studenthousing.presenter.register.PresenterImRegister;
+import com.example.quang.studenthousing.presenter.register.PresenterLogicRegister;
 import com.example.quang.studenthousing.view.login.LoginFragment;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener, ViewRegister {
@@ -26,6 +28,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     private Button btnBack;
     private AccountActivity activity;
 
+    private PresenterLogicRegister presenterLogicRegister;
 
     @Nullable
     @Override
@@ -51,6 +54,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
         btnBack.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
 
+        presenterLogicRegister = new PresenterLogicRegister(this);
     }
 
 
@@ -88,7 +92,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
                     return;
                 }
 
-               break;
+                //check tinh trang tai khoan dki, ket qua tra ve la 1 trong 3: that bai/ thanh cong/ da ton tai
+                presenterLogicRegister.checkRegister(user,pass,name,phone,activity);
+
+                break;
         }
     }
 
