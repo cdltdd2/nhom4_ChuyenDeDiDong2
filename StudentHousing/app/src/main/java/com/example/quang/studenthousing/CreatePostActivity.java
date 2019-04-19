@@ -232,7 +232,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     {
         switch (view.getId())
         {
-            //them hinh anh bai dang
+            //lay hinh anh co type la image va du lieu tra ve nam trog key 123, neu goi dung key se tra ve du lieu cho minh
             case R.id.btnBrowserAddPost:
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
@@ -268,6 +268,27 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                     checkClickCreate = true;
                     return;
                 }
+
+                if (arrImage.size() == 0){
+                    Snackbar snackbar = Snackbar
+                            .make(edtDesc, R.string.insert_image, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    checkClickCreate = true;
+                    return;
+                }
+
+                String address = street + ", " + ward + ", " + distric + ", " + city;
+
+                GetLatLng getLatLng = new GetLatLng();
+                getLatLng.execute(address);
+
+                break;
+            case R.id.btnBackAddPost:
+                finish();
+                break;
         }
     }
+
+
+
 }
