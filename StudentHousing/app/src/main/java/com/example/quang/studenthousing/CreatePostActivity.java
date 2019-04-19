@@ -15,6 +15,9 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.quang.studenthousing.adapter.GridViewImageAdapter;
+import com.example.quang.studenthousing.object.City;
+import com.example.quang.studenthousing.object.District;
+import com.example.quang.studenthousing.object.Ward;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
@@ -147,6 +150,10 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         ArrayList<String> arrCityString = new ArrayList<>();
         ArrayList<String> arrDistrictString = new ArrayList<>();
         ArrayList<String> arrWardString = new ArrayList<>();
+
+        for (int i=0; i<arrCity.size();i++){
+            arrCityString.add(arrCity.get(i).getName());
+        }
 
         // spinner city
         ArrayAdapter<String> adapterCity=new ArrayAdapter<String>(this
