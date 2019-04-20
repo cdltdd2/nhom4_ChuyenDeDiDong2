@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findID();
         initViews();
-        initDialogSearch();
+        loadData();
         initDialogSort();
         initDialogSearch();
 
