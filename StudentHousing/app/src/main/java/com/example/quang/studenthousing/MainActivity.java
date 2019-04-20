@@ -809,6 +809,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
+                //linh: chuyen sang man hinh tao bai
+            case R.id.lnAddPost:
+                if (permission == 0){
+                    //nếu user chưa đăng ký thành người đăng bài thì sẽ ko đc tạo bài
+                    drawerLayout.closeDrawers();
+                    //hiển thị cho user biết cần phải đăng ký đăng bài mới có thể tạo bài
+                    needPermissionPoster();
+                }else if (permission == 2){
+                    //nếu đã đăng ký đăng bài thì hiển thị giao diện tạo bài đăng
+                    Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
+                    intent.putExtra("from","main");
+                    intent.putExtra("idUser", idUser);
+                    startActivity(intent);
+                }
+                break;
+
             case R.id.btnSearch:
                 dialogSearch.show();
                 break;
