@@ -434,7 +434,6 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                 //convert
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
-                arrBase.add(getStringFromBitMap(bitmap));
 
                 //gui phuong thuc len va tra su lieu ve
                 DataClient dataClient = APIClient.getData();
