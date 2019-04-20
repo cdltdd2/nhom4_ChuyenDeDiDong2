@@ -33,7 +33,21 @@ import com.example.quang.studenthousing.services.APIClient;
 import com.example.quang.studenthousing.services.DataClient;
 import com.example.quang.studenthousing.utils.DatabaseUtils;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -41,9 +55,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class CreatePostActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class CreatePostActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edtTitle;
     private Spinner spinnerCity;
@@ -394,6 +406,74 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                 Toast.makeText(CreatePostActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 123 && resultCode == RESULT_OK && data != null){
+            //lay url hinh anh
+            Uri uri = data.getData();
+
+
+            String realPath = getRealPathFromURI(uri);
+
+            File file = new File(realPath);
+            //lay duong dan thuc te
+            String file_path = file.getAbsolutePath();
+
+            //xu ly upload trung anh, thi cat chuoi
+            String[] arrFileName = file_path.split("/");
+
+            //thoi gian upload + du lieu cat'
+            String imageName = System.currentTimeMillis() + arrFileName[arrFileName.length - 1];
+
+            try
+            {
+                //ket noi va mo duong dan
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                //convert
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+                arrBase.add(getStringFromBitMap(bitmap));
+
+                //gui phuong thuc len va tra su lieu ve
+                DataClient dataClient = APIClient.getData();
+
+                //tra du lieu ve
+                Call<String> callback = dataClient.uploadImage(getStringFromBitMap(bitmap),imageName);
+
+                //callback.enqueue bao gom: bao loi hoac gui gtri ve
+                callback.enqueue(new Callback<String>()
+                {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response)
+                    {
+                        if (response.body().equals("success"))
+                        {
+
+                        }else {
+                            Toast.makeText(CreatePostActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        //Toast.makeText(CreatePostActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            arrImage.add("images/" + imageName);
+            imageAdapter.notifyDataSetChanged();
+
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     //truyen vao uri se ket noi den duog dẫn này, nó di vo dung bien cursor lam con tro de no duyet
