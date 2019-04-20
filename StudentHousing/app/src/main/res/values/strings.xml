@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">StudentHousing</string>
-    <string name="facebook_app_id">2261089020574702</string>
-    <string name="fb_login_protocol_scheme">fb2261089020574702</string>
     <string name="map_api_key">AIzaSyBRUA6eCa5RfAvxGqmlOPYPrKHJMS93WHo</string>
 
     <string name="welcome">XIN CHÀO</string>
