@@ -16,7 +16,6 @@ import com.example.quang.studenthousing.AccountActivity;
 import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.presenter.login.PresenterLogicLogin;
 import com.example.quang.studenthousing.view.register.RegisterFragment;
-import com.facebook.login.LoginManager;
 
 
 import static android.content.Context.MODE_PRIVATE;
@@ -44,7 +43,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
     @Override
     public void onStart() {
         super.onStart();
-        LoginManager.getInstance().logOut();
         initViews();
     }
 
