@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.object.UrlPhoto;
+import com.example.quang.studenthousing.services.APIClient;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,7 @@ public class SlidingPhotoAdapter extends PagerAdapter{
         View itemView = layoutInflater.inflate(R.layout.item_slide_photo, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.itemPhotoSlide);
+        Glide.with(context).load(APIClient.BASE_URL+images.get(position).getURL()).into(imageView);
 
         container.addView(itemView);
 

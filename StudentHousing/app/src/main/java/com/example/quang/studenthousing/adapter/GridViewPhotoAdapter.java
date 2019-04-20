@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.object.UrlPhoto;
+import com.example.quang.studenthousing.services.APIClient;
 
 import java.util.ArrayList;
 
@@ -68,7 +71,9 @@ public class GridViewPhotoAdapter extends BaseAdapter {
         if (viewRow != null) {
             holder = (ViewHolder) viewRow.getTag();
         }
-
+        if (holder != null) {
+            Glide.with(context).load(APIClient.BASE_URL+item).into(holder.imView);
+        }
         return viewRow;
     }
 }

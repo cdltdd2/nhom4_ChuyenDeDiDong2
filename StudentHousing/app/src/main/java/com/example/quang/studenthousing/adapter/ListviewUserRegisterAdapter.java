@@ -10,9 +10,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.object.RegisterRequest;
+import com.example.quang.studenthousing.services.APIClient;
+import com.example.quang.studenthousing.services.DataClient;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListviewUserRegisterAdapter extends BaseAdapter {
     private Context context;
@@ -98,8 +107,10 @@ public class ListviewUserRegisterAdapter extends BaseAdapter {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.accept:
+                                updatePermission(registerRequest.getIDUSER(),1,i);
                                 break;
                             case R.id.denied:
+                                updatePermission(registerRequest.getIDUSER(),2,i);
                                 break;
                         }
                         return true;
@@ -113,4 +124,24 @@ public class ListviewUserRegisterAdapter extends BaseAdapter {
         return viewRow;
     }
 
+    private void updatePermission(int id, int result, int index){
+        DataClient dataClient = APIClient.getData();
+        Call<String> callBack = dataClient.updatePermissionUser(id,result);
+        callBack.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("success")){
+                    arrItem.remove(index);
+                    ListviewUserRegisterAdapter.this.notifyDataSetChanged();
+                }else if (response.body().equals("fail")){
+                    Toast.makeText(context, R.string.fail, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }
