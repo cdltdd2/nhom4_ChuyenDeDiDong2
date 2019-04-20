@@ -1,10 +1,14 @@
 <?php
+
 	require "connect.php";
 
 	$u = $_POST['user'];
 	$p = $_POST['pass'];
 
-
+    $u = '"'. $u . '"';
+    $p = '"' . $p . '"';
+    
+    
 	class User{
 		function User($id, $user, $pass, $name, $phone, $permission){
 			$this -> IDUSER = $id;
@@ -18,7 +22,7 @@
 
 	if (strlen($u) > 0 && strlen($p) > 0 ) {
 		$arrUser = array();
-		$query = "SELECT * FROM tblUsers WHERE FIND_IN_SET('$u', USER) AND FIND_IN_SET('$p', PASSWORD)";
+		$query = "SELECT * FROM tblusers where user = $u and password = $p";
 		$data = mysqli_query($connect, $query);
 		if ($data) {
 			while ($row = mysqli_fetch_assoc($data)) {
