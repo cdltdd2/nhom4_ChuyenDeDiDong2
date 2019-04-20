@@ -40,7 +40,16 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.quang.studenthousing.AccountActivity;
+import com.example.quang.studenthousing.CreatePostActivity;
+import com.example.quang.studenthousing.FavoriteActivity;
 import com.example.quang.studenthousing.InfoHouseActivity;
+import com.example.quang.studenthousing.ListBookingActivity;
+import com.example.quang.studenthousing.MapActivity;
+import com.example.quang.studenthousing.PostUploadedActivity;
+import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.adapter.GridViewHouseAdapter;
 import com.example.quang.studenthousing.object.City;
 import com.example.quang.studenthousing.object.District;
@@ -280,6 +289,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setTitle(R.string.all_houses);
 
         toggle = new ActionBarDrawerToggle(this,drawerLayout,0,0){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getFav();
+            }
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -287,6 +301,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         };
+        drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
         btnSearch.setOnClickListener(this);
@@ -295,10 +310,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lnSort.setOnClickListener(this);
         lnLogout.setOnClickListener(this);
         lnRegisterPoster.setOnClickListener(this);
+        lnAddPost.setOnClickListener(this);
         lnUploaded.setOnClickListener(this);
         lnBooked.setOnClickListener(this);
-
         gvAllHouses.setOnItemClickListener(this);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             gvAllHouses.setNestedScrollingEnabled(true);
         }
@@ -758,6 +774,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.lnUploaded:
                 if (permission == 0){
                     drawerLayout.closeDrawers();
+                    needPermissionPoster();
                 }else if (permission == 2){
                     startActivity(new Intent(this, PostUploadedActivity.class));
                 }
