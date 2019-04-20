@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
@@ -27,6 +29,18 @@ import com.example.quang.studenthousing.object.House;
 import com.example.quang.studenthousing.services.APIClient;
 import com.example.quang.studenthousing.services.DataClient;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -179,24 +193,24 @@ public class GridViewHouseUploadedAdapter extends BaseAdapter {
         dialog.setContentView(R.layout.dialog_edit_info);
         dialog.setCancelable(false);
 
-        EditText edtTitle = dialog.findViewById(R.id.edtTitleEdit);
+         EditText edtTitle = dialog.findViewById(R.id.edtTitleEdit);
         EditText edtCity = dialog.findViewById(R.id.edtCityEdit);
-        EditText edtDistrict = dialog.findViewById(R.id.edtDistrictEdit);
-        EditText edtWard = dialog.findViewById(R.id.edtWardEdit);
-        EditText edtStreet = dialog.findViewById(R.id.edtStreetEdit);
-        RadioButton radObjectMale = dialog.findViewById(R.id.radMaleEdit);
-        RadioButton radObjectFemale = dialog.findViewById(R.id.radFemaleEdit);
-        RadioButton radObjectBoth = dialog.findViewById(R.id.radBothEdit);
-        EditText edtDesc = dialog.findViewById(R.id.edtDescEdit);
-        EditText edtPhone = dialog.findViewById(R.id.edtPhoneEdit);
-        EditText edtAcreage = dialog.findViewById(R.id.edtAcreageEdit);
-        TextView tvAcreage = dialog.findViewById(R.id.tvAcreageEdit);
-        EditText edtPrice = dialog.findViewById(R.id.edtPriceEdit);
-        TextView tvPrice = dialog.findViewById(R.id.tvPriceEdit);
-        EditText edtMaxPeo = dialog.findViewById(R.id.edtMaxpeoEdit);
-        Button btnUpdate = dialog.findViewById(R.id.btnUpdateEdit);
-        Button btnBack = dialog.findViewById(R.id.btnBackEdit);
-        RadioButton radBooked = dialog.findViewById(R.id.radBookedEdit);
+        EditText edtDistrict= dialog.findViewById(R.id.edtDistrictEdit);
+        EditText edtWard= dialog.findViewById(R.id.edtWardEdit);
+         EditText edtStreet= dialog.findViewById(R.id.edtStreetEdit);
+         RadioButton radObjectMale= dialog.findViewById(R.id.radMaleEdit);
+         RadioButton radObjectFemale = dialog.findViewById(R.id.radFemaleEdit);
+         RadioButton radObjectBoth = dialog.findViewById(R.id.radBothEdit);
+         EditText edtDesc= dialog.findViewById(R.id.edtDescEdit);
+         EditText edtPhone = dialog.findViewById(R.id.edtPhoneEdit);
+         EditText edtAcreage = dialog.findViewById(R.id.edtAcreageEdit);
+         TextView tvAcreage = dialog.findViewById(R.id.tvAcreageEdit);
+         EditText edtPrice = dialog.findViewById(R.id.edtPriceEdit);
+         TextView tvPrice = dialog.findViewById(R.id.tvPriceEdit);
+         EditText edtMaxPeo = dialog.findViewById(R.id.edtMaxpeoEdit);
+         Button btnUpdate = dialog.findViewById(R.id.btnUpdateEdit);
+         Button btnBack = dialog.findViewById(R.id.btnBackEdit);
+        RadioButton radBooked= dialog.findViewById(R.id.radBookedEdit);
         RadioButton radUnBook = dialog.findViewById(R.id.radUnbookEdit);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -298,5 +312,25 @@ public class GridViewHouseUploadedAdapter extends BaseAdapter {
     private float acreage, price;
     private LatLng currentLocation;
 
+    private void update() {
+        DataClient dataClient = APIClient.getData();
+        Call<String> callBack = dataClient.updateInfoHouse(id,title,s+", "+w+", "+d+", "+c
+                ,object,desc,phone,acreage,price,maxpeo,currentLocation.toString(),state);
+        callBack.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("success")){
+                    dialog.dismiss();
+                    ((Activity)context).finish();
+                }else if (response.body().equals("fail")){
+                    Toast.makeText(context,R.string.fail, Toast.LENGTH_LONG).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }
