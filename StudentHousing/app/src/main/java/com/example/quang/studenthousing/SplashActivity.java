@@ -39,6 +39,9 @@ public class SplashActivity extends AppCompatActivity {
                 {
                     String[] arr = user.split("-");
 
+                    //1: admin
+                    //2: nguoi đã đăng ký đăng bài
+                    //0: user binh thuong
                     int permission = Integer.parseInt(arr[5]);
                     if (permission == 0 || permission == 2){
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));

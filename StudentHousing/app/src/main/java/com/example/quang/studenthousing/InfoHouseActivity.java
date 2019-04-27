@@ -1,3 +1,10 @@
+/*
+* LINH: THÔNG TIN CHI TIẾT BÀI ĐĂNG (COMMENT, DIỆN TÍCH, GIÁ, ĐỊA CHỈ, YÊU CẦU,...)
+* TOÀN: VỊ TRÍ BÀI ĐĂNG TRÊN MAP
+* NGUYÊN: ĐÁNH DẤU BÀI YÊU THÍCH
+* ĐẠT: ĐĂNG KÝ ĐẶT PHÒNG
+*
+* */
 package com.example.quang.studenthousing;
 
 import android.Manifest;
@@ -100,58 +107,79 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //tải giao diện thông tin chi tiết bài đăng
         setContentView(R.layout.activity_info_house);
-
+        //gán id
         findID();
+        //khởi tạo view và tải dữ liệu
         initViews();
         loadData();
     }
 
     private void loadData()
     {
+        //SharedPreferences lưu các dữ liệu thô dưới dạng các cặp khóa và giá trị (key-value) vào các tập tin của ứng dụng.
+        // Bạn cũng có thể chọn một chế độ lưu trữ riêng tư (PRIVATE) mà các ứng dụng khác không thể truy cập vào các tập tin này,
+        //truy cập user hiện tại dg sử dụng ứng dụng
         SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
         String user = pre.getString("user","");
         if (!user.equalsIgnoreCase("")){
+            //cắt chuỗi để lấy id user (vị trí đầu tiên trog mảng) và quyền user (vị trí thứ 5 trog mảng)
             String[] arr = user.split("-");
             idUser = Integer.parseInt(arr[0]);
             permission = Integer.parseInt(arr[5]);
 
         }
 
+        //intent là ý định muốn truy cập ứng dụng hoặc hoat động nào khác bên ngoài
         Intent intent = getIntent();
         house = (House) intent.getSerializableExtra("house");
-
+        //lấy ảnh đại diện để hiển thị cho bài đăng
         Glide.with(this).load(APIClient.BASE_URL+house.getIMAGE()).into(imHouse);
+        //lấy các thông tin khác của bài đăng
         tvTitle.setText(house.getTITLE());
         tvAddress.setText(house.getADDRESS());
         tvPhone.setText(house.getCONTACT());
         tvPrice.setText(getString(R.string.price) + ": "+house.getPRICE() + " " + getString(R.string.million_per_month));
         tvAcreage.setText(getString(R.string.acreage) + ": "+house.getACREAGE() + " " + getString(R.string.meter2));
+
+        //nếu đối tượng thuê là nam sẽ có giá trị la 1
         if (house.getOBJECT() == 1){
             tvObject.setText(R.string.object_male);
         }else if(house.getOBJECT() == 0){
+            //neu doi tuong thue la nu se co gia tri la 2
             tvObject.setText(R.string.object_female);
         }else {
+            //nguoc lại se la ca nam va nu deu dc thue
             tvObject.setText(R.string.object_both);
         }
 
+        //trạng thái phòng: còn trống hoặc đã có người đăng ký
         state = house.getSTATE();
         if (state == 1){
+            //da có người dky se co gtri la 1
             tvState.setText(R.string.booked);
             tvState.setTextColor(Color.RED);
         }else {
+            //nguoc lai se la còn trống
             tvState.setText(R.string.un_book);
             tvState.setTextColor(Color.GREEN);
         }
-
+        //get toa do vi tri cho thue nha
         latLngLocation = new LatLng(getLat(house.getLatlng()), getLng(house.getLatlng()));
 
+        //LINH: số lượng người đc ở trong 1 phòng tối đa
         tvMaxPeo.setText(getString(R.string.max_people) + ": " + house.getMAXPEO());
+        //thông tin mô tả khác
         tvStrongInfo.setText(house.getDESC());
+
+        //hình ảnh bài đăng
         getPhoto();
 
+        //bình luận bài đăng
         getComment();
 
+        //NGUYÊN: trạng thái yêu thích
         checkFav = false;
 
         if (permission == 1){
@@ -169,29 +197,39 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
 
     }
 
+    //LINH
     private void getComment() {
         arrComment.clear();
         DataClient dataClient = APIClient.getData();
+        //yêu cầu server trả về danh sách bình luận của bài đăng đó
         Call<List<Comment>> callBack = dataClient.getComment(house.getIDHOUSE());
+        //server trả về dữ liệu dạng json sau đó được convert thành đối tượng java bằng gson
         callBack.enqueue(new Callback<List<Comment>>() {
+            //server có dữ liệu để phản hồi lại
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 ArrayList<Comment> arr = (ArrayList<Comment>) response.body();
                 if (arr.size() > 0){
                     for (int i = arr.size() - 1; i >= 0; i--){
+                        //hiển thị binh luan
                         arrComment.add(arr.get(i));
                     }
+                    //refresh lại giao diện nếu có thay đổi
                     adapterComment.notifyDataSetChanged();
                 }
             }
+
+            //server có lỗi chẳng hạn như bị mất mạng
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
             }
         });
     }
 
+    //LINH
     private void getPhoto(){
         DataClient dataClient = APIClient.getData();
+        //yêu cầu server trả về hình ảnh của bài đăng đó
         Call<List<UrlPhoto>> callBack = dataClient.getPhotoInfo(house.getIDHOUSE());
         callBack.enqueue(new Callback<List<UrlPhoto>>() {
             @Override
@@ -235,25 +273,35 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         mapFragment.getMapAsync(this);
     }
 
+    //LINH
     private void initViews() {
         setSupportActionBar(toolbar);
+        //đặt tiêu đề giao diện là tên app
         getSupportActionBar().setTitle(R.string.app_name);
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         arrPhoto = new ArrayList<>();
         adapterPhoto = new GridViewPhotoAdapter(this,R.layout.item_gridview_photo,arrPhoto);
+
+        //đổ dữ liệu hình ảnh vào adapter photo
         gvPhotoInfo.setAdapter(adapterPhoto);
+
+        //lắng nghe sự kiện click vào ảnh, sau khi click vào ảnh nhỏ sẽ hiển thị ra ảnh to
         gvPhotoInfo.setOnItemClickListener(this);
 
         arrComment = new ArrayList<>();
+        //đổ dữ liệu binh luận vào adapter comment
         adapterComment = new ListViewCommentAdapter(this,R.layout.item_listview_comment,arrComment);
         lvComment.setAdapter(adapterComment);
 
+        //lắng nge sự kiện click gửi binh luận
         btnSend.setOnClickListener(this);
+        //lắng nge sự kiện click yêu thích
         btnAddFavorite.setOnClickListener(this);
     }
 
+    //xem ảnh theo dạng sliding, vuốt qua trái, phải để xem ảnh khác
     private void initDialogSliding(int currentPhoto) {
         dialogSlidingPhoto = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -496,7 +544,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         });
     }
 
-    //linh
+    //LINH: BẤM vào ảnh nhỏ bất kỳ để hiển thị slide ảnh
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         initDialogSliding(i);
@@ -591,7 +639,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
                 break;
         }
     }
-
+    //NGUYEN
     private void addFavorite(){
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.addFavorite(idUser,house.getIDHOUSE());
@@ -614,6 +662,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
             }
         });
     }
+    //NGUYEN
     private void removeFavorite(){
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.removeFavorite(idUser,house.getIDHOUSE());
@@ -633,6 +682,8 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
             }
         });
     }
+
+    //LINH: THÊM CMMT
     private void insertComment(String text, int idUser, int idHouse, String time){
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.insertComment(idUser,idHouse,text, time);

@@ -115,12 +115,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initDialogSort();
         initDialogSearch();
 
+        /*
+        * neu ko phai class AppService dg chay thi bật startService
+        * Intent(ý định): cho phép thành phần ứng dụng này yêu cầu thực hiện thành phần, chức năng khác,
+        * trường hơp này dùng để bắt đầu 1 service có tên là AppService
+        * */
         if (!isMyServiceRunning(AppService.class)){
             Intent myService = new Intent(MainActivity.this, AppService.class);
             startService(myService);
         }
     }
 
+    /*
+    * link: https://developer.android.com/reference/android/content/Context.html#ACTIVITY_SERVICE
+    * https://developer.android.com/reference/android/app/ActivityManager.RunningServiceInfo
+    * .Class<?>:  với '?' la ky tu đại diện cua 1 lop va serviceClass có mục đích chỉ ra rằng Class<?> phải là 1 lớp service, nhưng chưa rõ là lớp nào -_-
+    * .Sử dụng getSystemService để truy xuất ActivityManager để tương tác với trạng thái toàn hệ thống,
+    * chay vong lap for rút gọn: với mỗi đối tượng 'service' dg chạy, điều kiện vòng lặp là số lượng service tối đa hệ thống dg chạy
+    * RunningServiceInfo: thong tin cu the service dg chay trong he thong với 'service' là ten thanh phần
+    * .getRunningServices tra ve danh sach cac service hiện dg chay
+    * voi MAX_VALUE la so luong mục trả về tối đa, thực tế có thể nhỏ hơn tùy vào lượng sv dg chạy
+    * lay ten service va so sanh với tên lớp service nếu đúng trả về true có nghĩa là có 1 service dg chạy va nguoc lại
+    * */
     private boolean isMyServiceRunning(Class<?> serviceClass)
     {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -193,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getHouses();
     }
 
-    /*
+    /* NGUYÊN
      * xóa mảng danh sach yeu thich sau do tai lai dữ liệu app thông qua đối tượng progressDialog của thư viện SpotsDialog(dialog dấu chấm)
      * lấy dữ liệu
      *dismiss: đóng dialog
