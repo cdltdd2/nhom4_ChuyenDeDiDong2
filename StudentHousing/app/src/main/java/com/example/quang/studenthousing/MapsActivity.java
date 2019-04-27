@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quang.studenthousing.object.CustomEditTextLocation;
 import com.example.quang.studenthousing.object.Favorite;
@@ -32,6 +33,9 @@ import com.example.quang.studenthousing.object.House;
 import com.example.quang.studenthousing.object.OnChangeLocation;
 import com.example.quang.studenthousing.services.APIClient;
 import com.example.quang.studenthousing.services.DataClient;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -61,6 +65,7 @@ import java.util.List;
 import java.util.Locale;
 
 import dmax.dialog.SpotsDialog;
+import io.reactivex.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
