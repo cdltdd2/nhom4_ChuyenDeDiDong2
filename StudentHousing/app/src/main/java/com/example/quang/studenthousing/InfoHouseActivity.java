@@ -502,7 +502,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         initDialogSliding(i);
     }
 
-    //toan
+    //TOÀN: hiển thị map
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
@@ -522,7 +522,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
 
         LatLng begin = latLngLocation;
         mMap.moveCamera(CameraUpdateFactory.newLatLng(begin));
-        CameraPosition position = new CameraPosition(begin, 14, 0, 0);
+        CameraPosition position = new CameraPosition(begin,18,0,0);
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 
         Drawable circleDrawable = getResources().getDrawable(R.drawable.ic_location_pin);
@@ -536,7 +536,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
 
         mMap.addMarker(options);
     }
-
+    //TOÀN: MARKER ĐÁNH DẤU TRÊN MAP
     private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
         Canvas canvas = new Canvas();
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
@@ -546,18 +546,18 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-
+    //TOÀN: LẤY VĨ ĐỘ
     private double getLat(String latLng){
         String[] arrStr = latLng.split("\\(");
         String[] arrStr2 = arrStr[1].split(",");
-
+        Log.d("LAT", "getLat: " + arrStr2[0]);
         return Double.parseDouble(arrStr2[0]);
     }
 
+    //TOÀN: LÂY KINH ĐỘ
     private double getLng(String latLng){
         String[] arrStr = latLng.split("\\)");
         String[] arrStr2 = arrStr[0].split(",");
-
         return Double.parseDouble(arrStr2[1]);
     }
 

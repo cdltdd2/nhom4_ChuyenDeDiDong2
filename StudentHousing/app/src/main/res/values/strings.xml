@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">StudentHousing</string>
-    <string name="map_api_key">AIzaSyBRUA6eCa5RfAvxGqmlOPYPrKHJMS93WHo</string>
-
     <string name="welcome">XIN CHÀO</string>
     <string name="desc_app">Tìm kiếm tất cả ngôi nhà phù hợp với bạn qua StudentHousing</string>
     <string name="username">Tên tài khoản</string>
@@ -114,4 +112,5 @@
     <string name="list_booking">Danh sách đăng ký phòng</string>
     <string name="history_booking">Lịch sử đăng ký</string>
     <string name="new_booking">Một người dùng vừa đăng ký đặt phòng của bạn.</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

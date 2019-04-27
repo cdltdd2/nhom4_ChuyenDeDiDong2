@@ -1,3 +1,4 @@
+//TOÀN: ADAPTER CHỨA DỮ LIỆU Ở ADMIN
 package com.example.quang.studenthousing.adapter;
 
 import android.content.Context;
@@ -40,6 +41,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     // Returns the page title for the top indicator
     @Override
     public CharSequence getPageTitle(int position) {
+        //CHO BIẾT ĐANG Ở VỊ TRÍ CỦA TAB NÀO
         if (position == 0){
             return context.getString(R.string.post);
         }else if (position == 1){

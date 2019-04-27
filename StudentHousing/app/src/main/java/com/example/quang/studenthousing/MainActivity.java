@@ -17,11 +17,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,16 +37,7 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.quang.studenthousing.AccountActivity;
-import com.example.quang.studenthousing.CreatePostActivity;
-import com.example.quang.studenthousing.FavoriteActivity;
-import com.example.quang.studenthousing.InfoHouseActivity;
-import com.example.quang.studenthousing.ListBookingActivity;
-import com.example.quang.studenthousing.MapActivity;
-import com.example.quang.studenthousing.PostUploadedActivity;
-import com.example.quang.studenthousing.R;
 import com.example.quang.studenthousing.adapter.GridViewHouseAdapter;
 import com.example.quang.studenthousing.object.City;
 import com.example.quang.studenthousing.object.District;
@@ -731,7 +719,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    //toan
+    //TOAN: KHỞI TẠO MENU CHUC NANG
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -739,13 +727,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    //CỦA CHUNG
     @SuppressLint({"ResourceAsColor", "NewApi"})
     @Override
     public void onClick(View view)
     {
         switch (view.getId())
         {
-            //toan: map
+            //toan: map - chuyển sang giao diện map
             case R.id.btnMap:
                 Intent i = new Intent(this, MapActivity.class);
                 i.putExtra("arrHouse", arrHouses);
