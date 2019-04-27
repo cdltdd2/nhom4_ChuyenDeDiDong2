@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -83,7 +84,9 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     private int idUser;
     private boolean checkClickCreate;
 
+    //luu toa do dang string
     private LatLng currentLocation;
+    private House house;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +193,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         }
 
         // spinner city
-        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this
+        ArrayAdapter<String> adapterCity=new ArrayAdapter<String>(this
                 , android.R.layout.simple_spinner_item, arrCityString);
         //phải gọi lệnh này để hiển thị danh sách cho Spinner
         adapterCity.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
@@ -220,8 +223,8 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String str = arrCityString.get(i);
                 arrDistrictString.clear();
-                for (int index = 0; index < arrDistrict.size(); index++) {
-                    if (arrDistrict.get(index).getMaCity().equalsIgnoreCase(arrCity.get(i).getMa())) {
+                for (int index=0 ;index<arrDistrict.size() ;index++){
+                    if (arrDistrict.get(index).getMaCity().equalsIgnoreCase(arrCity.get(i).getMa())){
                         arrDistrictString.add(arrDistrict.get(index).getName());
                     }
                 }
@@ -311,12 +314,32 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                 }
 
                 String address = street + ", " + ward + ", " + distric + ", " + city;
+
+                GetLatLng getLatLng = new GetLatLng();
+                getLatLng.execute(address);
+
                 break;
 
             case R.id.btnBackAddPost:
                 finish();
                 break;
         }
+    }
+
+    //TOÀN: LẤY VĨ ĐỘ
+    private double getLat(String latLng){
+        String[] arrStr = latLng.split("\\(");
+        String[] arrStr2 = arrStr[1].split(",");
+        Log.d("LAT", "getLat: " + arrStr2[0]);
+        return Double.parseDouble(arrStr2[0]);
+    }
+
+    //TOÀN: LÂY KINH ĐỘ
+    private double getLng(String latLng){
+        String[] arrStr = latLng.split("\\)");
+        String[] arrStr2 = arrStr[0].split(",");
+        Log.d("LNG", "getLng: " + arrStr2[1]);
+        return Double.parseDouble(arrStr2[1]);
     }
 
     private void insert(){
@@ -352,6 +375,11 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         Call<List<House>> callBack = dataClient.createPost(title,address,object
                 , arrImage.get(0), desc, phone, acreage, price, maxPeo
                 , Calendar.getInstance().getTime().toString(), idUser, currentLocation.toString());
+        //them toa do
+        getLat(currentLocation.toString());
+        getLng(currentLocation.toString());
+
+        Log.d("LCP", "Current location: " + currentLocation.toString());
         callBack.enqueue(new Callback<List<House>>() {
             @Override
             public void onResponse(Call<List<House>> call, Response<List<House>> response) {
@@ -394,7 +422,9 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                             }
                         });
                     }
-                }else {
+                }
+                else
+                {
                     Snackbar snackbar = Snackbar
                             .make(edtDesc, R.string.fail, Snackbar.LENGTH_LONG);
                     snackbar.show();
@@ -407,6 +437,79 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
+
+    //toan: xac dinh map sau khi tao bai
+    private class GetLatLng extends AsyncTask<String, Void, LatLng> {
+
+        @Override
+        protected LatLng doInBackground(String... strings) {
+            return getLatLng(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(LatLng latLng) {
+            super.onPostExecute(latLng);
+            currentLocation = latLng;
+
+            insert();
+        }
+    }
+
+    //toan: lay toa do sau khi request api map sau khi tao bai
+    protected LatLng getLatLng(String address) {
+        String add = Uri.encode(address);
+        String uri = "https://maps.googleapis.com/maps/api/geocode/json?address="
+                + add + "&" + "key=AIzaSyCjSClgIE-DZ4BULjj9L_qu2hQ9Vzi8osg";
+
+        HttpGet httpGet = new HttpGet(uri);
+
+        HttpClient client = new DefaultHttpClient();
+        HttpResponse response;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            response = client.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+
+            InputStream stream = entity.getContent();
+
+            int byteData;
+            while ((byteData = stream.read()) != -1) {
+                stringBuilder.append((char) byteData);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        double lat = 0.0, lng = 0.0;
+
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(stringBuilder.toString());
+            lat = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
+                    .getJSONObject("geometry").getJSONObject("location")
+                    .getDouble("lat");
+            lng = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
+                    .getJSONObject("geometry").getJSONObject("location")
+                    .getDouble("lng");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LatLng latLngAddress = new LatLng(lat,lng);
+        currentLocation = latLngAddress;
+        return latLngAddress;
+    }
+
+    ArrayList<String> arrBase = new ArrayList<>();
+
+
+    //ket qua tra ve, neu dua ra dung key se tra ve ket qua
+    //func nay co sẵn
+    //result_ok: trạng thai tra ve dc chap nhan
+    //data != null: phai co du lieu
+    //com.squareup.retrofit2:converter-gson:2.4.0 thu vien tuong tac doc du lieu qua api
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -434,6 +537,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
                 //convert
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
+                arrBase.add(getStringFromBitMap(bitmap));
 
                 //gui phuong thuc len va tra su lieu ve
                 DataClient dataClient = APIClient.getData();
