@@ -1,3 +1,5 @@
+//ĐẠT: XỬ LÝ ACCOUNT
+//CHUYỂN GIAO DIỆN PHÙ HỢP CHO TỪNG LOẠI ACCOUNT
 package com.example.quang.studenthousing;
 
 import android.content.Intent;
@@ -16,6 +18,7 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        //LOAD GIAO DIỆN LOGIN
         loadFragment(new LoginFragment());
     }
 
@@ -34,6 +37,7 @@ public class AccountActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    //KẾT QUẢ TRẢ VỀ SAU KHI THỰC HIỆN ACCOUNT ACTIVITY
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -42,16 +46,19 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
+    //NẾU LÀ ACC USER THÌ VÀO MÀN HÌNH CHÍNH
     public void switchActivity(){
         startActivity(new Intent(AccountActivity.this,MainActivity.class));
         finish();
     }
 
+    //NẾU LÀ ADMIN THÌ VÀO MÀN HÌNH ADMIN (MANAGER ACTIVITY)
     public void switchActivityManager(){
         startActivity(new Intent(AccountActivity.this,ManagerActivity.class));
         finish();
     }
 
+    //QUAY LẠI
     @Override
     public void onBackPressed() {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {

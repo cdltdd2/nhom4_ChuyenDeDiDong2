@@ -19,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -280,17 +281,20 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         dialogSlidingPhoto.show();
     }
 
-    //dat: dky va huy dky dat phong
+    //ĐẠT: lựa chọn khi đặt phòng
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
+        //nhấn quay lại để hiển thị giao diện màn hình chính
         if (id == android.R.id.home)
         {
             finish();
         }
+        //nếu nhấn icon đặt phòng
         else if (id == R.id.action_book)
         {
+            //nếu đã đặt phòng này rôif
             if (checkBook)
             {
                 AlertDialog.Builder builder;
@@ -302,10 +306,12 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
                 {
                     builder = new AlertDialog.Builder(InfoHouseActivity.this);
                 }
+                //hiển thị dialog xác nhận muốn hủy đăng ký
                 builder.setTitle(R.string.confirm)
                         .setMessage(R.string.delete_this_book)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                         {
+                            //sau khi nhấn có để hủy đăng ký thì sẽ thực hiện hàm deleteBook để hủy đặt
                             public void onClick(DialogInterface dialog, int which)
                             {
                                 deleteBook();
@@ -315,13 +321,14 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
                         {
                             public void onClick(DialogInterface dialog, int which)
                             {
+                                //ngược lại, nếu nhấn không để hủy đặt sẽ tắt dialog
                                 dialog.dismiss();
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             }
-            else
+            else //nếu chưa đặt phòng
             {
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -332,6 +339,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
                 {
                     builder = new AlertDialog.Builder(InfoHouseActivity.this);
                 }
+                //hiển thị dialog xác nhận đặt phòng
                 builder.setTitle(R.string.confirm)
                         .setMessage(R.string.book_room)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -351,7 +359,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         return super.onOptionsItemSelected(item);
     }
 
-
+    //ĐẠT: đối tượng hiển thị
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_book_info, menu);
@@ -360,6 +368,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
         String user = pre.getString("user","");
         if (!user.equalsIgnoreCase("")){
+            //cắt chuỗi để lấy id user và quyền user
             String[] arr = user.split("-");
             idUser = Integer.parseInt(arr[0]);
             permission = Integer.parseInt(arr[5]);
@@ -368,31 +377,39 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         Intent intent = getIntent();
         House h = (House) intent.getSerializableExtra("house");
 
+        //nếu user hiên tại dg xem bài viết này là người đăng bài thì sẽ ko hiển thị icon đặt phòng
         if (idUser == h.getIDUSER()){
             item.setVisible(false);
         }
 
+        //nếu user hiện tại dg xem bài viết này là admin thì sẽ ko hiển thị icon đặt phòng
         if (permission == 1){
             item.setVisible(false);
         }else {
+            //nếu phòng này chưa có ai đặt sẽ có icon dấu check màu trắng
             if (h.getSTATE() == 0){
                 item.setIcon(R.drawable.icon_book_white);
                 checkBook = false;
             }else {
+                //kiểm tra xem user (user thường) dg xem bài viết có phải là người đã đặt phòng này hay ko
                 DataClient dataClient = APIClient.getData();
+                //yêu cầu thực hiện kiểm tra user có phải là người đặt hay ko trên server
                 Call<String> callBack = dataClient.checkUserIsBooker(idUser,h.getIDHOUSE());
                 callBack.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if (response.body().equals("true")){
+                            //nếu ng này là ng đặt phòng bài viết này thì sẽ hiển thị icon hủy đặt phòng
                             item.setIcon(R.drawable.icon_unbook_white);
                             checkBook = true;
                         }else if (response.body().equals("false")){
+                            //nếu ngược lại, người này ko phải là người đặt phòng này thì ko hiển thị icon gì hết, ko dc đặt phòng bài này nữa
                             item.setVisible(false);
                             checkBook = false;
                         }
                     }
 
+                    //nếu server bị lỗi sẽ hiển thị toast
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
                         Toast.makeText(InfoHouseActivity.this, "fail2", Toast.LENGTH_SHORT).show();
@@ -406,6 +423,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         return true;
     }
 
+    //ĐẠT: Xử lý sau khi hủy đặt phòng
     private void deleteBook(){
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.deleteBooking(idUser,house.getIDHOUSE());
@@ -418,6 +436,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
                     snackbar.show();
                     item.setIcon(R.drawable.icon_book_white);
                     checkBook = false;
+                    //đặt lại trạng thái phòng la còn trống
                     tvState.setText(R.string.un_book);
                     tvState.setTextColor(Color.GREEN);
                     house.setSTATE(0);
@@ -438,7 +457,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
         });
     }
 
-    //dang ky phong
+    //ĐẠT: xử lý đặt phòng
     private void bookRoom(){
         DataClient dataClient = APIClient.getData();
         Call<String> callBack = dataClient.bookRoom(idUser,house.getIDHOUSE());

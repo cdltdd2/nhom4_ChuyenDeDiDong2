@@ -799,8 +799,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //dat: dki dang bai
             case R.id.lnRegisterPoster:
                 if (permission == 0){
+                    //hiển thị dialog xác nhận dki trở thành người đăng bài khi user có permission là 0 (user thường)
                     showDialogCofirmRegisterPoster();
                 }else if (permission == 2){
+                    //user đã đăng ký đăng bài rồi sẽ có gtri permission là 2 và khi nhân vào đăng ký đăng bài sẽ hiển thị
+                    //thanh thông báo bên dưới cho người đó biết là user đó đã đăng thành người đăng bài rồi
                     Snackbar snackbar = Snackbar
                             .make(toolbar, R.string.noti_poster, Snackbar.LENGTH_LONG);
                     snackbar.show();
@@ -836,7 +839,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //dat: ktra user da dki dang bai chua
+    //ĐẠT: yêu cầu user đăng ký đăng bài mới có thể sử dụng chức năng abcxyz
     @SuppressLint("NewApi")
     private void needPermissionPoster(){
         Snackbar.make(toolbar, R.string.need_permission, Snackbar.LENGTH_LONG)

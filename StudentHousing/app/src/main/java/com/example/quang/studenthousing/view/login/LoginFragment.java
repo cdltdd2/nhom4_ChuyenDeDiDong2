@@ -1,3 +1,4 @@
+//ĐẠT: XỬ LÝ LOGIN
 package com.example.quang.studenthousing.view.login;
 
 import android.content.SharedPreferences;
@@ -63,19 +64,24 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            // LINH: ĐĂNG KÝ TÀI KHOẢN
             case R.id.tvRegisterUser:
                 activity.loadFragment(new RegisterFragment());
                 break;
+
+                //ĐẠT: LOGIN
             case R.id.btnLogin:
                 String user = edtUser.getText().toString();
                 String pass = edtPass.getText().toString();
 
+                //KIỂM TRA USER CÓ NHẬP ĐỦ THONG TIN CHƯA
                 if(user.isEmpty() || pass.isEmpty()){
                     Snackbar snackbar = Snackbar
                             .make(edtPass, R.string.insert_info, Snackbar.LENGTH_LONG);
                     snackbar.show();
                     return;
                 }
+                //YÊU CẦU KIỂM TRA TÀI KHOẢN TRÊN SERVER
                 presenterLogicLogin.checkLogin(user,pass,activity);
                 break;
 
@@ -99,6 +105,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Vie
 
     }
 
+    //CHUYỂN SANG GIAO DIỆN TƯƠNG ỨNG VỚI LOẠI TÀI KHOẢN TƯƠNG ỨNG
     private void saveUser(String infoUser)
     {
         SharedPreferences pre = activity.getSharedPreferences("studenthousing", MODE_PRIVATE);
