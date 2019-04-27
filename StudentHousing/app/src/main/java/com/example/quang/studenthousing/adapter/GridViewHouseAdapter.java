@@ -1,3 +1,4 @@
+//DUY: DSACH NHÀ DẠNG GRID (DẠNG LƯỚI)
 package com.example.quang.studenthousing.adapter;
 
 import android.annotation.SuppressLint;

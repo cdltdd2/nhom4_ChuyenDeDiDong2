@@ -49,6 +49,12 @@ import com.example.quang.studenthousing.services.AppService;
 import com.example.quang.studenthousing.services.DataClient;
 import com.example.quang.studenthousing.utils.DatabaseUtils;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Observable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -147,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lnBooked = findViewById(R.id.lnBooked);
     }
 
-    // duy: load du lieu o man hinh chinh
+    // DUY: load du lieu o man hinh chinh
     private void loadData()
     {
         SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
@@ -220,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    //lay danh sach bai
+    //DUY: danh sach tất cả bài đăng ở màn hình chính
     private void getHouses()
     {
         //tai lai ds
@@ -265,8 +271,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    //DUY: khởi tạo giao diện
     private void initViews() {
+        //hỗ trợ thanh bar trên cùng (chứa tiêu đề giao diện hiện tại và menu)
         setSupportActionBar(toolbar);
+
+        //kiểm tra version sdk có hỗ trợ k
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
@@ -274,8 +284,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         }
 
+        //hiển thị tiêu đề giao diện
         getSupportActionBar().setTitle(R.string.all_houses);
 
+        //nguyên
         toggle = new ActionBarDrawerToggle(this,drawerLayout,0,0){
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -292,25 +304,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        btnSearch.setOnClickListener(this);
-        lnAllHouses.setOnClickListener(this);
-        lnFavorite.setOnClickListener(this);
-        lnSort.setOnClickListener(this);
-        lnLogout.setOnClickListener(this);
-        lnRegisterPoster.setOnClickListener(this);
-        lnAddPost.setOnClickListener(this);
-        lnUploaded.setOnClickListener(this);
-        lnBooked.setOnClickListener(this);
-        gvAllHouses.setOnItemClickListener(this);
+        //lắng nghe sự kiện click tương ứng với chức năng khi nhấn ở menu
+        btnMap.setOnClickListener(this); //map - TOÀN
+        btnSearch.setOnClickListener(this); //search - NGUYÊN
+        lnAllHouses.setOnClickListener(this); //màn hình chính (danh sách bài đăng) - DUY
+        lnFavorite.setOnClickListener(this); //danh sách yêu thích - NGUYÊN
+        lnSort.setOnClickListener(this); //sắp xếp -NGUYÊN
+        lnLogout.setOnClickListener(this); // đăng xuất - NGUYÊN
+        lnRegisterPoster.setOnClickListener(this); //đăng ký trở thành tài khoản có thể đăng bài - ĐẠT
+        lnAddPost.setOnClickListener(this); //tạo bài đăng sau khi trở thành người đăng bài - LINH
+        lnUploaded.setOnClickListener(this); //ds bài đã đăng sau khi tạo - DUY
+        lnBooked.setOnClickListener(this); //lịch sử đặt phòng - DUY
+        gvAllHouses.setOnItemClickListener(this); //thông tin chi tiết bài đăng - LINH
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             gvAllHouses.setNestedScrollingEnabled(true);
         }
 
-
+        //refresh tải lại dữ liệu
         progressDialog = new SpotsDialog(this, R.style.CustomProgressDialog);
     }
 
+    //NGUYEN
     private void initDialogSort()
     {
         dialogSort = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
@@ -358,6 +373,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    //NGUYEN
     private void sort(int type, int style){
         //type = 1 : low to high
         //type = 0 : high to low
@@ -398,6 +414,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.notifyDataSetChanged();
     }
 
+    //NGUYEN
     private void initDialogSearch()
     {
         dialogSearch = new Dialog(this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
@@ -699,6 +716,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    //NGUYEN-MENU TUY CHINH TREN TOOLBAR
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -736,7 +754,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             //toan: map - chuyển sang giao diện map
             case R.id.btnMap:
-                Intent i = new Intent(this, MapActivity.class);
+                Intent i = new Intent(this, MapsActivity.class);
                 i.putExtra("arrHouse", arrHouses);
                 startActivity(i);
                 break;
@@ -770,7 +788,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 drawerLayout.closeDrawers();
                 break;
 
-
+            //nguyen: logout
             case R.id.lnLogout:
                 SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
                 SharedPreferences.Editor edit = pre.edit();
@@ -785,7 +803,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            //dat: dki dang bai
+            //dat: đăng ký đăng bài
             case R.id.lnRegisterPoster:
                 if (permission == 0){
                     //hiển thị dialog xác nhận dki trở thành người đăng bài khi user có permission là 0 (user thường)
@@ -817,6 +835,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
+                //nguyen: tim kiem
             case R.id.btnSearch:
                 dialogSearch.show();
                 break;
@@ -903,7 +922,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    //dat: sau khi tam ngung se tai lai danh sach nha
+    //DUY: sau khi tam ngưng activity giao diện chính để sử dụng activity khác thì se tai lai danh sach nha
     @Override
     protected void onResume() {
         super.onResume();

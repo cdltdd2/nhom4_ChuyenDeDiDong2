@@ -1,3 +1,4 @@
+//DUY: DSACH BAI ĐÃ ĐĂNG DẠNG LƯỚI
 package com.example.quang.studenthousing.adapter;
 
 import android.annotation.SuppressLint;
@@ -182,8 +183,8 @@ public class GridViewHouseUploadedAdapter extends BaseAdapter {
         });
     }
 
-    private void initDialog(House house) {
-        dialog = new Dialog(context, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
+    private void initDialog(House house){
+        dialog = new Dialog(context,android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
         else {
@@ -299,6 +300,9 @@ public class GridViewHouseUploadedAdapter extends BaseAdapter {
                     return;
                 }
 
+                GetLatLng getLatLng = new GetLatLng();
+                getLatLng.execute(s+", "+w+", "+d+", "+c);
+
             }
         });
 
@@ -311,6 +315,22 @@ public class GridViewHouseUploadedAdapter extends BaseAdapter {
     private int object, maxpeo, id, state;
     private float acreage, price;
     private LatLng currentLocation;
+
+    private class GetLatLng extends AsyncTask<String, Void, LatLng> {
+
+        @Override
+        protected LatLng doInBackground(String... strings) {
+            return getLatLng(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(LatLng latLng) {
+            super.onPostExecute(latLng);
+            currentLocation = latLng;
+
+            update();
+        }
+    }
 
     private void update() {
         DataClient dataClient = APIClient.getData();
@@ -333,4 +353,51 @@ public class GridViewHouseUploadedAdapter extends BaseAdapter {
             }
         });
     }
+
+    //Hamf chuyen name sang latlng
+    protected LatLng getLatLng(String address) {
+        String key = Uri.encode(address);
+        String uri = "http://maps.google.com/maps/api/geocode/json?address="
+                + key + "&sensor=false";
+
+        HttpGet httpGet = new HttpGet(uri);
+
+        HttpClient client = new DefaultHttpClient();
+        HttpResponse response;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            response = client.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+
+            InputStream stream = entity.getContent();
+
+            int byteData;
+            while ((byteData = stream.read()) != -1) {
+                stringBuilder.append((char) byteData);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        double lat = 0.0, lng = 0.0;
+
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(stringBuilder.toString());
+            lng = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
+                    .getJSONObject("geometry").getJSONObject("location")
+                    .getDouble("lng");
+            lat = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
+                    .getJSONObject("geometry").getJSONObject("location")
+                    .getDouble("lat");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LatLng latLngAddress = new LatLng(lat,lng);
+        return latLngAddress;
+    }
+
 }

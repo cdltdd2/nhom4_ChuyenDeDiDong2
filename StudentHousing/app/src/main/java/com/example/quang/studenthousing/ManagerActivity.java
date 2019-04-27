@@ -1,3 +1,4 @@
+//DUY: CHỨC NĂNG ADMIN
 package com.example.quang.studenthousing;
 
 import android.content.Intent;
@@ -41,10 +42,11 @@ public class ManagerActivity extends AppCompatActivity {
 
     }
 
+    //menu trong giao diện admin
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        //đăng xuất khỏi tài khoản admin
         if (id == R.id.action_logout){
             SharedPreferences pre = getSharedPreferences("studenthousing", MODE_PRIVATE);
             SharedPreferences.Editor edit=pre.edit();
@@ -58,8 +60,10 @@ public class ManagerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //khơi tạo menu trong admin
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //icon đăng xuất
         getMenuInflater().inflate(R.menu.menu_manager, menu);
         return true;
     }

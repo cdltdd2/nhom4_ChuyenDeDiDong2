@@ -1,3 +1,4 @@
+//DUY: DS DỮ LIỆU USER ĐKY ĐẶT PHÒNG
 package com.example.quang.studenthousing.adapter;
 
 import android.annotation.SuppressLint;

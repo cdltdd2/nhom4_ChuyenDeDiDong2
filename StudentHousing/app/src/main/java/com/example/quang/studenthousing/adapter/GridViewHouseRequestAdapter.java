@@ -1,3 +1,4 @@
+//DUY: DSACH BÀI ĐĂNG CẦN DUYỆT (ADMIN) DẠNG LƯỚI
 package com.example.quang.studenthousing.adapter;
 
 import android.annotation.SuppressLint;

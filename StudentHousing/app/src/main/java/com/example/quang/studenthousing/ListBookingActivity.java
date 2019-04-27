@@ -1,3 +1,4 @@
+//DUY: LỊCH SỬ ĐẶT PHÒNG
 package com.example.quang.studenthousing;
 
 import android.content.SharedPreferences;
@@ -60,9 +61,12 @@ public class ListBookingActivity extends AppCompatActivity {
 
         }
 
+        //gửi yêu cầu server trả về danh sách user đã đặt những phòng nào
         DataClient dataClient = APIClient.getData();
         Call<List<PersonBooking>> callBack = dataClient.getListBooking(idUser);
+        //kết quả trả về là 1 chuỗi json và đc convert sang dạng object (PersonBooking) của java
         callBack.enqueue(new Callback<List<PersonBooking>>() {
+            //khi có dữ liệu server sẽ trả về ds những bài user đã đặt
             @Override
             public void onResponse(Call<List<PersonBooking>> call, Response<List<PersonBooking>> response) {
                 ArrayList<PersonBooking> arr = (ArrayList<PersonBooking>) response.body();
@@ -71,10 +75,12 @@ public class ListBookingActivity extends AppCompatActivity {
                     for (int i = arr.size() - 1; i >= 0; i--){
                         arrBooking.add(arr.get(i));
                     }
+                    //tự động refresh lại giao diện nếu có thay đổi
                     adapter.notifyDataSetChanged();
                 }
             }
 
+            //nếu server bị lỗi chẳng hạn như mất mạng sẽ hiển thị toast thông báo
             @Override
             public void onFailure(Call<List<PersonBooking>> call, Throwable t) {
                 Toast.makeText(ListBookingActivity.this, t.getMessage()+"", Toast.LENGTH_SHORT).show();
@@ -82,6 +88,7 @@ public class ListBookingActivity extends AppCompatActivity {
         });
     }
 
+    //nhấn nút quay lại
     @Override
     public void onBackPressed() {
         super.onBackPressed();

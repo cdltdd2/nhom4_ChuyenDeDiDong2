@@ -1,3 +1,4 @@
+//DUY: ADMIN QUẢN LÝ TÀI KHOẢN ĐĂNG BÀI, CHO PHÉP HOẶC KO CHO PHÉP TÀI KHOẢN ĐÓ ĐĂNG BÀI
 package com.example.quang.studenthousing.fragment;
 
 import android.os.Bundle;

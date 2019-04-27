@@ -1,3 +1,4 @@
+//DUY: ADAPTER CHỨA DỮ LIỆU LỊCH SỬ ĐẶT PHÒNG
 package com.example.quang.studenthousing.adapter;
 
 import android.annotation.SuppressLint;

@@ -1,3 +1,4 @@
+//DUY: ADMIN QUẢN LÝ BÀI ĐĂNG: CHO PHÉP HOẶC KO CHO PHÉP BÀI ĐÓ ĐC ĐĂNG
 package com.example.quang.studenthousing.fragment;
 
 import android.content.Intent;
@@ -65,6 +66,7 @@ public class ManagerPostFragment extends Fragment implements AdapterView.OnItemC
     private void loadData() {
         progressDialog.show();
         DataClient dataClient = APIClient.getData();
+        //LẤY DỮ LIỆU TẤT CẢ BÀI ĐĂNG
         Call<List<House>> callBack = dataClient.getAllHouse();
         callBack.enqueue(new Callback<List<House>>() {
             @Override
@@ -75,7 +77,7 @@ public class ManagerPostFragment extends Fragment implements AdapterView.OnItemC
                     for (int i = arrHouse.size() - 1; i >= 0; i--){
                         //bai chua kiem duyet se co trang thai la 0
                         if (arrHouse.get(i).getCHECKUP() == 0){
-                            //them bai chua duyet vao mang
+                            //LỌC RA BÀI ĐĂNG CHƯA ĐC KIỂM DUYỆT VÀ THÊM VÀO DS CẦN DUYỆT
                             arrHouses.add(arrHouse.get(i));
                         }
                     }
@@ -91,7 +93,7 @@ public class ManagerPostFragment extends Fragment implements AdapterView.OnItemC
         });
     }
 
-    //nhan item house se chuyen qua man hinh thong tin chi tiet bai dang do
+    //NHẤN VÀO BÀI ĐĂNG ĐỂ ADMIN XEM THÔNG TIN CHI TIẾT BÀI ĐÓ
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(activity,InfoHouseActivity.class);
