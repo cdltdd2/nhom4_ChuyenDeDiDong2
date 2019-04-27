@@ -1,3 +1,4 @@
+//LINH: TẠO BÀI
 package com.example.quang.studenthousing;
 
 import android.content.Intent;
@@ -127,9 +128,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
         idUser = intent.getIntExtra("idUser",0);
     }
 
-    private void initViews()
-    {
-        //hien thi hinh anh
+    private void initViews() {
         arrImage = new ArrayList<>();
         imageAdapter = new GridViewImageAdapter(this,R.layout.item_gridview_image,arrImage);
         gvImage.setAdapter(imageAdapter);
@@ -177,8 +176,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    //state: chua ket noi db
-    private void loadSpinner() {
+    private void loadSpinner(){
         DatabaseUtils databaseUtils = new DatabaseUtils(this);
         final ArrayList<City> arrCity = databaseUtils.getCity();
         final ArrayList<District> arrDistrict = databaseUtils.getDistrict();
@@ -372,6 +370,7 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
 
 
         DataClient dataClient = APIClient.getData();
+        //request lên server tạo bài
         Call<List<House>> callBack = dataClient.createPost(title,address,object
                 , arrImage.get(0), desc, phone, acreage, price, maxPeo
                 , Calendar.getInstance().getTime().toString(), idUser, currentLocation.toString());

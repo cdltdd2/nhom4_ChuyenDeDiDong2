@@ -1,3 +1,4 @@
+//LINH: DSACH PHOTO DẠNG LƯỚI KHI CHỌN ẢNH
 package com.example.quang.studenthousing.adapter;
 
 import android.annotation.SuppressLint;

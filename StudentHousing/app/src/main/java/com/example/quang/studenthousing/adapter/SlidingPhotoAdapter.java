@@ -1,3 +1,4 @@
+//LINH: ADAPTER CHỨA HÌNH DẠNG SLIDE
 package com.example.quang.studenthousing.adapter;
 
 import android.content.Context;

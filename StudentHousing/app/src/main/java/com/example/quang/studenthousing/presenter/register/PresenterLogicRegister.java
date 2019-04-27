@@ -1,11 +1,17 @@
+//LINH: YÊU CẦU SERVER KIỂM TRA TÀI KHOẢN ĐÃ ĐC ĐĂNG KÝ CHƯA VÀ KẾT QUẢ ĐĂNG KÝ
 package com.example.quang.studenthousing.presenter.register;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.quang.studenthousing.object.User;
 import com.example.quang.studenthousing.services.APIClient;
 import com.example.quang.studenthousing.services.DataClient;
 import com.example.quang.studenthousing.view.register.ViewRegister;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -1,3 +1,4 @@
+//LINH: ĐĂNG KÝ TÀI KHOẢN
 package com.example.quang.studenthousing.view.register;
 
 import android.os.Bundle;

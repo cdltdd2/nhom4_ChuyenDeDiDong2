@@ -1,3 +1,4 @@
+//LINH: ADAPTER CHỨA DỮ LIỆU COMMENT
 package com.example.quang.studenthousing.adapter;
 
 import android.annotation.SuppressLint;
