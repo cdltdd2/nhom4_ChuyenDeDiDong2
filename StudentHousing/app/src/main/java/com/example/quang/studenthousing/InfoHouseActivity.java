@@ -393,6 +393,7 @@ public class InfoHouseActivity extends AppCompatActivity implements AdapterView.
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which)
                             {
+                                bookRoom();
                             }
                         })
                         .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
