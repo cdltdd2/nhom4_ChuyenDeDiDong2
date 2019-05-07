@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/background_7"
     android:layout_height="match_parent"
     tools:context=".CreatePostActivity">
 
@@ -14,7 +14,8 @@
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
             <com.example.quang.studenthousing.object.CustomTextItalic
                 android:layout_width="wrap_content"
                 android:text="@string/add_post"
@@ -22,335 +23,353 @@
                 android:layout_marginTop="40dp"
                 android:id="@+id/tvAddPost"
                 android:layout_centerHorizontal="true"
-                android:textSize="45sp"
+                android:textSize="60sp"
                 android:textColor="@color/white"
                 style="?android:attr/textAppearanceLarge"
                 android:layout_height="wrap_content" />
 
-            <com.example.quang.studenthousing.object.CustomEditText
-                android:layout_marginTop="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/tvAddPost"
-                android:padding="10dp"
-                android:id="@+id/edtTitleAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:inputType="text"
-                android:background="@drawable/edt_background_border"
-                android:hint="@string/title"/>
-
             <LinearLayout
-                android:id="@+id/lnCity"
-                android:layout_below="@id/edtTitleAddPost"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="160dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/background_login_tran"
                 android:layout_height="wrap_content">
-                <android.support.v7.widget.CardView
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        android:id="@+id/spinnerCityAddPost"
-                        android:layout_marginRight="5dp"
-                        android:padding="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></Spinner>
-                </android.support.v7.widget.CardView>
 
-                <android.support.v7.widget.CardView
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        android:id="@+id/spinnerDistrictAddPost"
-                        android:layout_marginRight="5dp"
-                        android:padding="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></Spinner>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lnWard"
-                android:layout_below="@id/lnCity"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.v7.widget.CardView
-                    android:layout_weight="1"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        android:id="@+id/spinnerWardAddPost"
-                        android:layout_marginRight="5dp"
-                        android:padding="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></Spinner>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-            <com.example.quang.studenthousing.object.CustomEditText
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/lnWard"
-                android:padding="10dp"
-                android:id="@+id/edtStreetAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:inputType="text"
-                android:background="@drawable/edt_background_border"
-                android:hint="@string/street"/>
-
-            <com.example.quang.studenthousing.object.CustomTextView
-                android:layout_width="wrap_content"
-                android:text="@string/object"
-                android:textColor="@color/white"
-                android:padding="10dp"
-                android:id="@+id/tvObjectRent"
-                android:layout_below="@id/edtStreetAddPost"
-                android:layout_centerHorizontal="true"
-                style="?android:attr/textAppearanceMedium"
-                android:layout_height="wrap_content" />
-
-            <RadioGroup
-                android:id="@+id/groupObjectAddPost"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_below="@id/tvObjectRent"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RadioButton
-                    android:checked="false"
-                    android:id="@+id/radMaleAddPost"
-                    android:paddingLeft="5dp"
-                    android:textColor="@color/white"
-                    style="?android:attr/textAppearanceSmall"
-                    android:text="@string/male"
-                    android:buttonTint="@color/white"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <RadioButton
-                    android:checked="false"
-                    android:id="@+id/radFemaleAddPost"
-                    android:paddingLeft="5dp"
-                    android:textColor="@color/white"
-                    style="?android:attr/textAppearanceSmall"
-                    android:text="@string/female"
-                    android:buttonTint="@color/white"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <RadioButton
-                    android:checked="true"
-                    android:id="@+id/radBothAddPost"
-                    android:paddingLeft="5dp"
-                    android:textColor="@color/white"
-                    style="?android:attr/textAppearanceSmall"
-                    android:text="@string/both"
-                    android:buttonTint="@color/white"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
-
-            <com.example.quang.studenthousing.object.CustomEditText
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_below="@id/groupObjectAddPost"
-                android:padding="10dp"
-                android:maxLines="1000"
-                android:id="@+id/edtDescAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:inputType="textMultiLine"
-                android:background="@drawable/edt_background_border"
-                android:hint="@string/strong_info"/>
-
-            <com.example.quang.studenthousing.object.CustomEditText
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/edtDescAddPost"
-                android:padding="10dp"
-                android:id="@+id/edtPhoneAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:inputType="number"
-                android:background="@drawable/edt_background_border"
-                android:hint="@string/phone"/>
-
-            <com.example.quang.studenthousing.object.CustomTextView
-                android:layout_width="wrap_content"
-                android:text="@string/acreage"
-                android:textColor="@color/white"
-                android:padding="10dp"
-                android:id="@+id/tvAcre"
-                android:layout_below="@id/edtPhoneAddPost"
-                android:layout_centerHorizontal="true"
-                style="?android:attr/textAppearanceMedium"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:gravity="center"
-                android:id="@+id/lnAcreageAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_below="@id/tvAcre"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <SeekBar
-                    android:id="@+id/seekBarAcreageAddPost"
-                    android:padding="5dp"
-                    android:layout_weight="2"
-                    android:max="100"
-                    android:theme="@style/MySeekBarTheme"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <com.example.quang.studenthousing.object.CustomTextView
-                    android:layout_width="0dp"
-                    android:gravity="center"
-                    android:id="@+id/tvAcreageAddPost"
-                    android:layout_weight="1"
-                    style="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    android:text="@string/zero_m2"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-
-            <com.example.quang.studenthousing.object.CustomTextView
-                android:layout_width="wrap_content"
-                android:text="@string/price"
-                android:textColor="@color/white"
-                android:padding="10dp"
-                android:id="@+id/tvPri"
-                android:layout_below="@id/lnAcreageAddPost"
-                android:layout_centerHorizontal="true"
-                style="?android:attr/textAppearanceMedium"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:gravity="center"
-                android:id="@+id/lnPriceAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_below="@id/tvPri"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <SeekBar
-                    android:id="@+id/seekBarPriceAddPost"
-                    android:padding="5dp"
-                    android:layout_weight="2"
-                    android:max="100"
-                    android:theme="@style/MySeekBarTheme"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <com.example.quang.studenthousing.object.CustomTextView
-                    android:layout_width="0dp"
-                    android:gravity="center"
-                    android:id="@+id/tvPriceAddPost"
-                    android:layout_weight="1"
-                    style="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    android:text="@string/zero_million"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:gravity="center"
-                android:id="@+id/lnMaxPeoAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
-                android:layout_below="@id/lnPriceAddPost"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
                 <com.example.quang.studenthousing.object.CustomEditText
-                    android:layout_width="0dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_below="@id/tvAddPost"
                     android:padding="10dp"
-                    android:layout_weight="2"
-                    android:id="@+id/edtMaxpeoAddPost"
+                    android:id="@+id/edtTitleAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:inputType="text"
+                    android:background="@drawable/edt_background_border"
+                    android:hint="@string/title"/>
+
+                <LinearLayout
+                    android:id="@+id/lnCity"
+                    android:layout_below="@id/edtTitleAddPost"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.CardView
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            android:background="@drawable/spinner_design_tran_corner"
+                            android:id="@+id/spinnerCityAddPost"
+                            android:layout_marginRight="5dp"
+                            android:padding="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></Spinner>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            android:background="@drawable/spinner_design_tran_corner"
+                            android:id="@+id/spinnerDistrictAddPost"
+                            android:layout_marginRight="5dp"
+                            android:padding="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></Spinner>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lnWard"
+                    android:layout_below="@id/lnCity"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.CardView
+                        android:layout_weight="1"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            android:background="@drawable/spinner_design_tran_corner"
+                            android:id="@+id/spinnerWardAddPost"
+                            android:layout_marginRight="5dp"
+                            android:padding="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></Spinner>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+                <com.example.quang.studenthousing.object.CustomEditText
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/lnWard"
+                    android:padding="10dp"
+                    android:id="@+id/edtStreetAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:inputType="text"
+                    android:background="@drawable/edt_background_border"
+                    android:hint="@string/street"/>
+
+                <com.example.quang.studenthousing.object.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:text="@string/object"
+                    android:textColor="@color/tran_back"
+                    android:padding="10dp"
+                    android:id="@+id/tvObjectRent"
+                    android:layout_below="@id/edtStreetAddPost"
+                    android:layout_centerHorizontal="true"
+                    style="?android:attr/textAppearanceMedium"
+                    android:layout_height="wrap_content" />
+
+                <RadioGroup
+                    android:id="@+id/groupObjectAddPost"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_below="@id/tvObjectRent"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:checked="false"
+                        android:id="@+id/radMaleAddPost"
+                        android:paddingLeft="5dp"
+                        android:textColor="@color/tran_back"
+                        style="?android:attr/textAppearanceSmall"
+                        android:text="@string/male"
+                        android:buttonTint="@color/tran_back"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:checked="false"
+                        android:id="@+id/radFemaleAddPost"
+                        android:paddingLeft="5dp"
+                        android:textColor="@color/tran_back"
+                        style="?android:attr/textAppearanceSmall"
+                        android:text="@string/female"
+                        android:buttonTint="@color/tran_back"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:checked="true"
+                        android:id="@+id/radBothAddPost"
+                        android:paddingLeft="5dp"
+                        android:textColor="@color/tran_back"
+                        style="?android:attr/textAppearanceSmall"
+                        android:text="@string/both"
+                        android:buttonTint="@color/tran_back"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
+
+                <com.example.quang.studenthousing.object.CustomEditText
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/groupObjectAddPost"
+                    android:padding="10dp"
+                    android:maxLines="1000"
+                    android:id="@+id/edtDescAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:inputType="textMultiLine"
+                    android:background="@drawable/edt_background_border"
+                    android:hint="@string/strong_info"/>
+
+                <com.example.quang.studenthousing.object.CustomEditText
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/edtDescAddPost"
+                    android:padding="10dp"
+                    android:id="@+id/edtPhoneAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:inputType="number"
                     android:background="@drawable/edt_background_border"
-                    android:hint="@string/max_people"/>
+                    android:hint="@string/phone"/>
+
                 <com.example.quang.studenthousing.object.CustomTextView
-                    android:layout_width="0dp"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    style="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    android:text="@string/people"
+                    android:layout_width="wrap_content"
+                    android:text="@string/acreage"
+                    android:textColor="@color/tran_back"
+                    android:padding="10dp"
+                    android:id="@+id/tvAcre"
+                    android:layout_below="@id/edtPhoneAddPost"
+                    android:layout_centerHorizontal="true"
+                    style="?android:attr/textAppearanceMedium"
                     android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:id="@+id/lnAcreageAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/tvAcre"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <SeekBar
+                        android:id="@+id/seekBarAcreageAddPost"
+                        android:padding="5dp"
+                        android:layout_weight="2"
+                        android:outlineAmbientShadowColor="@color/white"
+                        android:outlineSpotShadowColor="@color/white"
+                        android:max="100"
+                        android:theme="@style/MySeekBarTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:id="@+id/tvAcreageAddPost"
+                        android:layout_weight="1"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/tran_back"
+                        android:text="@string/zero_m2"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <com.example.quang.studenthousing.object.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:text="@string/price"
+                    android:textColor="@color/tran_back"
+                    android:padding="10dp"
+                    android:id="@+id/tvPri"
+                    android:layout_below="@id/lnAcreageAddPost"
+                    android:layout_centerHorizontal="true"
+                    style="?android:attr/textAppearanceMedium"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:id="@+id/lnPriceAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/tvPri"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <SeekBar
+                        android:id="@+id/seekBarPriceAddPost"
+                        android:padding="5dp"
+                        android:layout_weight="2"
+                        android:max="100"
+                        android:theme="@style/MySeekBarTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:id="@+id/tvPriceAddPost"
+                        android:layout_weight="1"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/tran_back"
+                        android:text="@string/zero_million"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:id="@+id/lnMaxPeoAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/lnPriceAddPost"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.example.quang.studenthousing.object.CustomEditText
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:padding="10dp"
+                        android:layout_weight="2"
+                        android:id="@+id/edtMaxpeoAddPost"
+                        android:inputType="number"
+                        android:background="@drawable/edt_background_border"
+                        android:hint="@string/max_people"/>
+                    <com.example.quang.studenthousing.object.CustomTextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/tran_back"
+                        android:text="@string/people"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <com.example.quang.studenthousing.object.CustomGridView
+                    android:id="@+id/gvImageAddPost"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/lnMaxPeoAddPost"
+                    android:verticalSpacing="5dp"
+                    android:horizontalSpacing="5dp"
+                    android:numColumns="5"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.example.quang.studenthousing.object.CustomGridView>
+
+                <Button
+                    android:id="@+id/btnBrowserAddPost"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="30dp"
+                    android:text="@string/browser"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/gvImageAddPost"
+                    android:background="@drawable/edt_background_border"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+
+                <Button
+                    style="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:text="@string/create"
+                    android:layout_below="@id/btnBrowserAddPost"
+                    android:layout_marginTop="40dp"
+                    android:id="@+id/btnCreateAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn_login_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:layout_marginBottom="40dp"
+                    style="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/back"
+                    android:layout_below="@id/btnCreateAddPost"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/btnBackAddPost"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn_background_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
-
-            <com.example.quang.studenthousing.object.CustomGridView
-                android:id="@+id/gvImageAddPost"
-                android:layout_marginTop="20dp"
-                android:layout_below="@id/lnMaxPeoAddPost"
-                android:verticalSpacing="5dp"
-                android:horizontalSpacing="5dp"
-                android:numColumns="5"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </com.example.quang.studenthousing.object.CustomGridView>
-
-            <Button
-                android:id="@+id/btnBrowserAddPost"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:text="@string/browser"
-                android:layout_marginTop="5dp"
-                android:layout_below="@id/gvImageAddPost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                style="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white"
-                android:text="@string/create"
-                android:layout_below="@id/btnBrowserAddPost"
-                android:layout_marginTop="40dp"
-                android:id="@+id/btnCreateAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/btn_background_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:layout_marginBottom="40dp"
-                style="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/back"
-                android:layout_below="@id/btnCreateAddPost"
-                android:layout_marginTop="10dp"
-                android:id="@+id/btnBackAddPost"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/btn_background_back"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </RelativeLayout>
     </ScrollView>
 

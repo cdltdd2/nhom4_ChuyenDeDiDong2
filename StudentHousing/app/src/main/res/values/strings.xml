@@ -57,7 +57,7 @@
     <string name="search">Tìm kiếm</string>
     <string name="zero_million">0 Triệu</string>
     <string name="zero_m2">0 m2</string>
-    <string name="search_option">Tìm kiếm nâng cao</string>
+    <string name="search_option">Tìm kiếm</string>
     <string name="register_poster">Đăng ký đăng bài</string>
     <string name="need_permission">Bạn phải trở thành người đăng bài mới sử dụng được mục này.</string>
     <string name="verify_register_poster">Bạn muốn đăng ký thành người đăng bài?</string>
@@ -74,7 +74,7 @@
     <string name="female">Nữ</string>
     <string name="both">Cả hai</string>
     <string name="people">Người</string>
-    <string name="browser">Duyệt</string>
+    <string name="browser">Chọn ảnh</string>
     <string name="create">Tạo</string>
     <string name="insert_image">Bạn cần thêm ít nhất một ảnh.</string>
     <string name="verify_create_post">Bài viết của bạn đã được gửi, vui lòng chờ BQT phê duyệt.</string>

@@ -17,12 +17,12 @@
         <LinearLayout
             android:layout_gravity="bottom"
             android:orientation="vertical"
-            android:background="@color/white"
+            android:background="@color/tran_back"
             android:layout_width="match_parent"
             android:layout_height="60dp">
             <com.example.quang.studenthousing.object.CustomTextBold
                 android:layout_width="wrap_content"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:text="Hahahahah"
                 android:lines="1"
                 android:id="@+id/tvItemTitle"
@@ -46,6 +46,7 @@
                         android:text="@string/price"
                         android:drawablePadding="5dp"
                         android:lines="1"
+                        android:textColor="@color/white"
                         android:drawableLeft="@drawable/icon_price"
                         android:id="@+id/tvItemPrice"
                         android:layout_height="wrap_content" />
@@ -59,6 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="@string/acreage"
+                        android:textColor="@color/white"
                         android:drawablePadding="5dp"
                         android:lines="1"
                         android:drawableLeft="@drawable/icon_acreage"

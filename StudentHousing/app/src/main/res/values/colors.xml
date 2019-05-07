@@ -7,4 +7,9 @@
     <color name="background">#e6e6e6</color>
     <color name="white">#ffffff</color>
     <color name="btn">#e6c14d</color>
+    <color name="tran">#80000000</color>
+    <color name="tran_back">#5C161616</color>
+    <color name="tran_light">#63474747</color>
+    <color name="white_tran">#80ffffff</color>
+
 </resources>
